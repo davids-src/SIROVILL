@@ -1,0 +1,127 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/app/_not-found/page-2e1420d98ba62dc1.js"
+    ],
+    "/api/kapcsolat/route": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/app/api/kapcsolat/route-2e1420d98ba62dc1.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/not-found-8cdf4af5198eca35.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/css/aff89fcc47f8a507.css",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/layout-9ead61302f7f8c41.js"
+    ],
+    "/sitemap.xml/route": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/app/sitemap.xml/route-2e1420d98ba62dc1.js"
+    ],
+    "/robots.txt/route": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/app/robots.txt/route-2e1420d98ba62dc1.js"
+    ],
+    "/blog/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/blog/page-ba47c0c94800218d.js"
+    ],
+    "/aszf/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/app/aszf/page-48625827966f03b1.js"
+    ],
+    "/adatvedelem/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/app/adatvedelem/page-48625827966f03b1.js"
+    ],
+    "/blog/[slug]/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/blog/[slug]/page-192c3abf50f89ec0.js"
+    ],
+    "/rolunk/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/rolunk/page-ba47c0c94800218d.js"
+    ],
+    "/kapcsolat/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/app/kapcsolat/page-d7a3b42c11db6b85.js"
+    ],
+    "/szolgaltatasok/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/szolgaltatasok/page-ba47c0c94800218d.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/page-ba47c0c94800218d.js"
+    ],
+    "/szolgaltatasok/[slug]/page": [
+      "static/chunks/webpack-7fa83e2f1fc0244f.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-87552e6e05b8e3aa.js",
+      "static/chunks/main-app-b3e77a53f6d0cd31.js",
+      "static/chunks/733-e2263cea363e0f0d.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/szolgaltatasok/[slug]/page-192c3abf50f89ec0.js"
+    ]
+  }
+}

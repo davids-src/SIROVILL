@@ -1,7 +1,11 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.ts",
+  ],
   theme: {
     extend: {
       colors: {
@@ -20,9 +24,9 @@ const config: Config = {
         sirosoft: "#1AE87B",
       },
       fontFamily: {
-        display: ['"Space Grotesk"', "sans-serif"],
-        body: ['"Inter"', "sans-serif"],
-        mono: ['"JetBrains Mono"', "monospace"],
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       maxWidth: {
         site: "1280px",

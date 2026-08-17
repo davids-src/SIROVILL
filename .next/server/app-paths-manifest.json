@@ -1,0 +1,15 @@
+{
+  "/api/kapcsolat/route": "app/api/kapcsolat/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/aszf/page": "app/aszf/page.js",
+  "/adatvedelem/page": "app/adatvedelem/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/rolunk/page": "app/rolunk/page.js",
+  "/kapcsolat/page": "app/kapcsolat/page.js",
+  "/szolgaltatasok/page": "app/szolgaltatasok/page.js",
+  "/page": "app/page.js",
+  "/szolgaltatasok/[slug]/page": "app/szolgaltatasok/[slug]/page.js"
+}
