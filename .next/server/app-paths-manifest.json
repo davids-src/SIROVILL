@@ -1,3 +1,7 @@
 {
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/kapcsolat/page": "app/kapcsolat/page.js",
+  "/szolgaltatasok/[slug]/page": "app/szolgaltatasok/[slug]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/page": "app/blog/page.js"
 }
