@@ -73,7 +73,7 @@ const jsonLd = {
         email: SITE.email,
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Lövölde utca 24",
+          streetAddress: "Lövölde utca 24. 4/15.",
           addressLocality: "Székesfehérvár",
           postalCode: "8000",
           addressCountry: "HU",

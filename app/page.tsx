@@ -15,37 +15,37 @@ import { trackEvent } from "@/lib/analytics";
 const ACCENT = SITE.accent;
 
 const heroBullets = [
-  "Ingyenes helyszíni felmérés",
-  "Rögzített ár, ami a kivitelezésig nem változik",
-  "Ugyanaz a csapat, amelyik a hálózatot és a kamerát is szereli",
+  "A felmérés ingyen van",
+  "Az ár rögzített — annyi lesz, amennyit mondtunk",
+  "A hálózatot és a kamerát is mi szereljük, ha kell",
 ];
 
 const stats = [
-  { ertek: "1 munkanap", cimke: "VÁLASZIDŐ MEGKERESÉSRE" },
-  { ertek: "Fejér m. · Budapest", cimke: "HELYSZÍNI LEFEDETTSÉG" },
-  { ertek: "Rögzített ár", cimke: "AJÁNLATTÓL A SZÁMLÁIG" },
+  { ertek: "1 munkanap", cimke: "ENNYI ALATT VISSZAHÍVUNK" },
+  { ertek: "Fejér m. · Budapest", cimke: "IDE JÁRUNK KI" },
+  { ertek: "Rögzített ár", cimke: "NINCS UTÓLAGOS MEGLEPETÉS" },
 ];
 
 const hogyanDolgozunkKartyak = [
   {
     szam: "01",
     cim: "Felmérés",
-    szoveg: "Kimegyünk, megnézzük a helyszínt, és megbeszéljük, mi kell. Ez nem kerül semmibe.",
+    szoveg: "Kimegyünk, megnézzük, mi van, és megbeszéljük, mi kellene. Ingyen.",
   },
   {
     szam: "02",
     cim: "Árajánlat",
-    szoveg: "Tételes, rögzített áras ajánlatot kap. Nincs benne meglepetés.",
+    szoveg: "Tételesen leírjuk, mi mennyibe kerül. Ez az ár marad.",
   },
   {
     szam: "03",
     cim: "Ütemezés",
-    szoveg: "Egyeztetjük az időpontot úgy, hogy illeszkedjen a többi munkához az építkezésen.",
+    szoveg: "Megbeszéljük, mikor jövünk — úgy, hogy a többi mesterrel ne akadjunk össze.",
   },
   {
     szam: "04",
     cim: "Kivitelezés",
-    szoveg: "Elvégezzük, átadjuk, és megmutatjuk, mi hova került.",
+    szoveg: "Megcsináljuk, és átadáskor végigmegyünk rajta, mi hova került.",
   },
 ];
 
@@ -53,25 +53,25 @@ const gyikKerdesek = [
   {
     kerdes: "Mennyi idő alatt tudnak kezdeni?",
     valasz:
-      "A munka méretétől és az aktuális ütemezéstől függ. A felmérés után konkrét időpontot adunk — és azt tartjuk is.",
+      "Attól függ, mekkora a munka és mi van épp folyamatban. A felmérés után konkrét dátumot mondunk, és azt tartjuk.",
   },
   {
     kerdes: "Meddig érvényes az árajánlat?",
     valasz:
-      "A rögzített ár a kivitelezésig érvényes marad. Ha menet közben Ön kér változtatást, azt előre egyeztetjük.",
+      "A kivitelezésig. Ha menet közben változtat valamin, azt előre megbeszéljük.",
   },
   {
     kerdes: "Miért nem vállalnak felülvizsgálatot?",
     valasz:
-      "Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki jegyzőkönyvet. Mérőhely-kialakítással és fogyasztásmérő bekötésével sem foglalkozunk. Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk — szóljon előre, és megszervezzük.",
+      "Mert az külön jogosultsághoz kötött, és mi arra nem vagyunk feljogosítva. Ha kell jegyzőkönyv, a partnerünk elvégzi — csak szóljon előre.",
   },
   {
     kerdes: "Kell fizetnem a felmérésért?",
-    valasz: "Nem. A helyszíni felmérés és a rögzített áras ajánlat is díjmentes.",
+    valasz: "Nem. Se a kiszállás, se az árajánlat nem kerül semmibe.",
   },
   {
     kerdes: "Vállalnak munkát magánszemélyeknek is?",
-    valasz: "Igen, cégeknek és magánembereknek is dolgozunk.",
+    valasz: "Igen. Családi háztól a csarnokig.",
   },
 ];
 
@@ -92,15 +92,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <Reveal>
-                <Eyebrow accent={ACCENT}>SIROTECH GROUP — VILLANYSZERELÉS</Eyebrow>
+                <Eyebrow accent={ACCENT}>VILLANYSZERELÉS</Eyebrow>
                 <h1
                   className="mt-6 text-4xl font-bold text-ink sm:text-5xl lg:text-6xl"
                   style={{ letterSpacing: "-0.04em", lineHeight: 1.05 }}
                 >
-                  Villanyszerelés, ahol a kábel is a helyén marad
+                  Villanyszerelés, ahogy kell
                 </h1>
                 <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
-                  Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés. Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk — ez nem kerül semmibe.
+                  Konnektortól az elosztóig, hibakereséstől a teljes felújításig. Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. A felmérés ingyen van.
                 </p>
               </Reveal>
               <Reveal delay={0.15} className="mt-9">
@@ -149,7 +149,7 @@ export default function HomePage() {
                     <span className="label text-muted">DÍJMENTES FELMÉRÉS</span>
                   </div>
                   <p className="mt-4 text-sm text-ink">
-                    Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk — ez nem kerül semmibe.
+                    Konnektortól az elosztóig, hibakereséstől a teljes felújításig. Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. A felmérés ingyen van.
                   </p>
                   <div className="mt-5 border-t border-line/50 pt-5">
                     <TextLink
@@ -185,8 +185,8 @@ export default function HomePage() {
       <Section className="border-t border-line/50">
         <SectionHeading
           eyebrow="HOGYAN DOLGOZUNK"
-          h2="Négy lépés, és kész"
-          lead="A felméréstől a kész munkáig — hogy tudja, mire számíthat."
+          h2="Így megy ez nálunk"
+          lead="Négy lépés, semmi bonyolult."
         />
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {hogyanDolgozunkKartyak.map((o, i) => (
@@ -210,8 +210,8 @@ export default function HomePage() {
       <Section className="border-t border-line/50">
         <SectionHeading
           eyebrow="SZOLGÁLTATÁSOK"
-          h2="Amit vállalunk"
-          lead="Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés."
+          h2="Amit csinálunk"
+          lead="Hét terület, amiben otthon vagyunk. Ami nem fér bele, arra megmondjuk, kihez érdemes fordulni."
           accent={ACCENT}
         />
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -259,16 +259,16 @@ export default function HomePage() {
 
       {/* Amit nem vállalunk */}
       <Section className="border-t border-line/50">
-        <SectionHeading eyebrow="ÁTLÁTHATÓSÁG" h2="Amit nem vállalunk" accent={ACCENT} />
+        <SectionHeading eyebrow="ÁTLÁTHATÓSÁG" h2="Amit nem csinálunk" accent={ACCENT} />
         <Reveal className="mt-14 max-w-3xl">
           <p className="text-base text-muted sm:text-lg">
-            Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki ilyen jegyzőkönyvet — ez külön jogosultsághoz kötött tevékenység. Nem foglalkozunk mérőhely-kialakítással és fogyasztásmérő bekötésével — ehhez áramszolgáltatói regisztráció szükséges.
+            Érintésvédelmi és szabványossági felülvizsgálatot nem végzünk, jegyzőkönyvet nem állítunk ki. Mérőhellyel és fogyasztásmérővel sem foglalkozunk — ahhoz szolgáltatói regisztráció kell.
           </p>
           <div className="mt-8 rounded-lg border p-6" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}12` }}>
             <div className="flex items-start gap-3">
               <ShieldCheck size={22} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
               <p className="text-sm text-ink sm:text-base">
-                Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk. Szóljon előre, és megszervezzük.
+                Ha jegyzőkönyv kell a munkához, szóljon — a partnerünk elvégzi.
               </p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function HomePage() {
                   href={d.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackEvent("outbound_click", { target_site: d.href.replace("https://", ""), location: "egy_kezbol_panel" })}
+                  onClick={() => trackEvent("outbound_click", { target_site: d.href.replace("https://", ""), location: "cegcsoport_szekcio" })}
                   className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-150"
                   style={{ color: d.szin }}
                 >
@@ -359,10 +359,10 @@ export default function HomePage() {
           <Reveal>
             <Chip accent={ACCENT}>DÍJMENTES FELMÉRÉS</Chip>
             <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              Kezdjük egy felméréssel
+              Nézzük meg együtt
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">
-              Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. Ennyi.
+              Kimegyünk, megnézzük, megmondjuk az árát. Utána Ön dönt.
             </p>
             <div className="mt-9 flex justify-center">
               <ButtonLink

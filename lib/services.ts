@@ -19,50 +19,43 @@ export const SERVICES: ServiceCard[] = [
   {
     slug: "villanyszereles-felujitas",
     cim: "Villanyszerelés és felújítás",
-    szoveg:
-      "Dugaljak, kapcsolók, világítási körök kialakítása, áramkör-bővítés, elosztószekrény szerelése.",
+    szoveg: "Konnektorok, kapcsolók, új áramkör, elosztó bővítése vagy cseréje.",
     ikon: "Zap",
   },
   {
     slug: "vilagitas-korszerusites",
     cim: "Világítás korszerűsítés",
-    szoveg:
-      "Fénycsövek és izzók cseréje LED-re, új világítási körök, mozgásérzékelős kapcsolás.",
+    szoveg: "Fénycső és izzó cseréje LED-re, új világítási kör, mozgásérzékelő.",
     ikon: "Lightbulb",
   },
   {
     slug: "villanyszerelesi-hibaelharitas",
     cim: "Hibaelhárítás",
-    szoveg:
-      "Zárlatkeresés, folyamatosan kioldó kismegszakító okainak feltárása, szerelvények cseréje.",
+    szoveg: "Zárlatkeresés, folyton kioldó biztosíték, melegedő konnektor.",
     ikon: "Wrench",
   },
   {
     slug: "kabelezes-epitkezeskor",
     cim: "Kábelezés építkezéskor",
-    szoveg:
-      "Erős- és gyengeáramú nyomvonalak kialakítása, amíg még nyitva a fal.",
+    szoveg: "Nyomvonal, gégecső, kötődobozok — amíg nyitva a fal.",
     ikon: "Cable",
   },
   {
     slug: "gyengearamu-kabelezes",
     cim: "Gyengeáramú kábelezés",
-    szoveg:
-      "Hálózati kábelezés, kamera- és riasztórendszerek táp- és jelkábelezése, kaputelefon.",
+    szoveg: "Hálózat, kamera, riasztó, kaputelefon kábelezése.",
     ikon: "Network",
   },
   {
     slug: "okosotthon-vezerles",
     cim: "Okosotthon-vezérlés",
-    szoveg:
-      "Okos kapcsolók, redőny- és világításvezérlés, ütemezett kapcsolás.",
+    szoveg: "Okos kapcsoló, redőnyvezérlés, ütemezett világítás.",
     ikon: "Home",
   },
   {
     slug: "ipari-villanyszereles",
     cim: "Ipari villanyszerelés",
-    szoveg:
-      "Gépek villamos bekötése gyártói utasítás szerint, műhely- és üzemi villanyszerelés.",
+    szoveg: "Gépbekötés a gyártói papír szerint, műhely, üzem, csarnok.",
     ikon: "Factory",
   },
 ];

@@ -4,7 +4,7 @@ export const SITE = {
   cegnev: "SIROTECH Informatikai és Biztonságtechnikai Kft.",
   divizio: "SIROVILL",
   accent: "#F5B81C",
-  cim: "8000 Székesfehérvár, Lövölde utca 24",
+  cim: "8000 Székesfehérvár, Lövölde utca 24. 4/15.",
   telefon: "+36 70 273 5532",
   telefonHref: "tel:+36702735532",
   email: "hello@sironic.hu",

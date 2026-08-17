@@ -25,7 +25,7 @@ export default function SzolgaltatasokPage() {
               Szolgáltatásaink
             </h1>
             <p className="mt-5 text-base text-muted sm:text-lg">
-              Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés. Cégeknek és magánembereknek is dolgozunk.
+              Hét terület, amiben otthon vagyunk. Családi háztól a csarnokig.
             </p>
           </Reveal>
         </div>
@@ -64,16 +64,16 @@ export default function SzolgaltatasokPage() {
         <Reveal className="max-w-3xl">
           <Eyebrow accent={ACCENT}>ÁTLÁTHATÓSÁG</Eyebrow>
           <h2 className="mt-6 text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-            Amit nem vállalunk
+            Amit nem csinálunk
           </h2>
           <p className="mt-5 text-base text-muted sm:text-lg">
-            Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki jegyzőkönyvet. Mérőhely-kialakítással és fogyasztásmérő bekötésével sem foglalkozunk. Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk — szóljon előre, és megszervezzük.
+            Érintésvédelmi és szabványossági felülvizsgálatot nem végzünk, jegyzőkönyvet nem állítunk ki. Mérőhellyel és fogyasztásmérővel sem foglalkozunk — ahhoz szolgáltatói regisztráció kell.
           </p>
           <div className="mt-8 rounded-lg border p-6" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}12` }}>
             <div className="flex items-start gap-3">
               <ShieldCheck size={22} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
               <p className="text-sm text-ink sm:text-base">
-                Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk. Szóljon előre, és megszervezzük.
+                Ha jegyzőkönyv kell a munkához, szóljon — a partnerünk elvégzi.
               </p>
             </div>
           </div>
@@ -85,10 +85,10 @@ export default function SzolgaltatasokPage() {
         <div className="relative mx-auto max-w-site px-6 text-center">
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              Kezdjük egy felméréssel
+              Nézzük meg együtt
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">
-              Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. Ennyi.
+              Kimegyünk, megnézzük, megmondjuk az árát. Utána Ön dönt.
             </p>
             <div className="mt-9 flex justify-center">
               <ButtonLink
