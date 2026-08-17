@@ -1,6 +1,5 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Check, AlertCircle, Send, Clock, MapPin, Phone, Mail } from "lucide-react";
 import { Seo } from "../components/Seo";
 import { Section } from "../components/Section";

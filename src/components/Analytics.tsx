@@ -4,6 +4,8 @@ declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
     _fbq?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
   }
 }
 
@@ -28,10 +30,10 @@ export function Analytics() {
         loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId}`, "ga-gtag-src");
         if (!window.gtag) {
           window.gtag = function (...args: unknown[]) {
-            (window.dataLayer = window.dataLayer || []).push(args);
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(args);
           };
         }
-        // apply default consent as denied, then update if pending
         window.gtag("consent", "default", {
           analytics_storage: "granted",
           ad_storage: "granted",
@@ -46,12 +48,13 @@ export function Analytics() {
       if (fbPixelId && accepted) {
         if (!window._fbq) {
           window._fbq = function (...args: unknown[]) {
-            (window.fbq = window.fbq || function (...a: unknown[]) {
-              (window._fbq as (...a: unknown[]) => void).call?.(null, ...a);
-            }).call?.(null, ...args);
+            window.fbq = window.fbq || function (...a: unknown[]) {
+              window._fbq?.apply(null, a);
+            };
+            window.fbq.apply(null, args);
           };
         }
-        loadScript(`https://connect.facebook.net/en_US/fbevents.js`, "fb-pixel-src");
+        loadScript("https://connect.facebook.net/en_US/fbevents.js", "fb-pixel-src");
         window._fbq("init", fbPixelId);
         window._fbq("track", "PageView");
       }

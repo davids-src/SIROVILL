@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Seo } from "../components/Seo";
 import { Section } from "../components/Section";
 import { Reveal, staggerParent, staggerChild } from "../components/Reveal";
