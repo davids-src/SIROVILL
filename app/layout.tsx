@@ -5,7 +5,9 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Analytics } from "@/components/Analytics";
+import { GlobalScrollTracker } from "@/components/GlobalScrollTracker";
 import { SITE } from "@/lib/site";
+
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -106,7 +108,9 @@ export default function RootLayout({
         <Footer />
         <CookieBanner />
         <Analytics />
+        <GlobalScrollTracker />
       </body>
+
     </html>
   );
 }

@@ -38,14 +38,13 @@ export default function AszfPage() {
             <p><strong className="text-ink">Adószám:</strong> {SITE.adoszam}</p>
             <p><strong className="text-ink">Cégjegyzékszám:</strong> {SITE.cegjegyzekszam}</p>
             <p><strong className="text-ink">Nyilvántartó:</strong> {SITE.nyilvantarto}</p>
-            <p><strong className="text-ink">Szakképesítés:</strong> {SITE.szakkepesites}</p>
             <h2>2. A szolgáltatás köre</h2>
             <p>A SIROVILL a {SITE.cegnev} villanyszerelési divíziója. A szolgáltató épületvillamossági kivitelezést, felújítást, korszerűsítést, hibaelhárítást, kábelezést és okosotthon-vezérlést végez.</p>
             <p>Szolgáltatási terület: {SITE.szolgaltatasiTerulet}.</p>
             <h2>3. A kivitelezés időzítése</h2>
-            <p>A kivitelezés 2026. november 1-től indul. A felmérés és a rögzített áras ajánlat már a weboldal élesítésétől díjmentesen elérhető.</p>
+            <p>A kivitelezés időpontját a díjmentes helyszíni felmérést követően egyeztetjük a megrendelővel.</p>
             <h2>4. Felmérés és ajánlatadás</h2>
-            <p>A szolgáltató díjmentes helyszíni felmérést kínál, és rögzített áras ajánlatot ad. Az ajánlat a novemberi kivitelezési kezdésig érvényes marad.</p>
+            <p>A szolgáltató díjmentes helyszíni felmérést kínál, és rögzített áras ajánlatot ad. Az ajánlatban szereplő ár a kivitelezés megkezdéséig rögzített marad.</p>
             <h2>5. Nem vállalt tevékenységek</h2>
             <ul>
               <li>Érintésvédelmi felülvizsgálat</li>

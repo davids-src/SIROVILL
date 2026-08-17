@@ -10,7 +10,7 @@ const ACCENT = SITE.accent;
 
 export const metadata: Metadata = {
   title: "Rólunk — SIROVILL villanyszerelés",
-  description: "A SIROVILL a SIROTECH Kft. legújabb divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.",
+  description: "A SIROVILL a SIROTECH Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.",
   openGraph: { title: "Rólunk — SIROVILL", url: "https://sirovill.hu/rolunk" },
   alternates: { canonical: "https://sirovill.hu/rolunk" },
 };
@@ -18,12 +18,12 @@ export const metadata: Metadata = {
 const team = [
   { nev: "Skoda Dávid", szerep: "SIRONIC — Hálózat és IT" },
   { nev: "Tóth Tamás", szerep: "SIRO-VÉD — Biztonságtechnika" },
-  { nev: "Villanyszerelő kollégánk", szerep: "Hamarosan", placeholder: true },
+  { nev: "Villanyszerelő kollégánk", szerep: "SIROVILL — Épületvillamosság" },
 ];
 
 const bizalmi = [
-  { cimke: "Szakképesítés", ertek: SITE.szakkepesites },
   { cimke: "Cégjegyzékszám", ertek: SITE.cegjegyzekszam },
+  { cimke: "Adószám", ertek: SITE.adoszam },
   { cimke: "Felelősségbiztosítás", ertek: "Rendelkezünk" },
 ];
 
@@ -39,7 +39,7 @@ export default function RolunkPage() {
               A SIROVILL
             </h1>
             <p className="mt-5 text-base text-muted sm:text-lg">
-              A SIROVILL a SIROTECH Kft. legújabb divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.
+              A SIROVILL a SIROTECH Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.
             </p>
           </Reveal>
         </div>
@@ -48,7 +48,7 @@ export default function RolunkPage() {
       <Section>
         <Reveal className="max-w-3xl">
           <p className="text-base text-ink sm:text-lg">
-            2021 óta dolgozunk informatikai és biztonságtechnikai területen. Eddig is mi kábeleztünk a hálózat- és kamerarendszer-telepítéseknél — csak ott, ahol a villamos munka kezdődött, át kellett adni valaki másnak. 2026 novemberétől ez megszűnik: saját villanyszerelő kollégával bővülünk, hogy egy csapat tudja végigvinni a teljes kivitelezést.
+            2021 óta dolgozunk informatikai és biztonságtechnikai területen. Eddig is mi kábeleztünk a hálózat- és kamerarendszer-telepítéseknél — saját villanyszerelő kollégával kiegészülve egy csapat tudja végigvinni a teljes kivitelezést az erősáramtól a hálózatig.
           </p>
         </Reveal>
       </Section>
@@ -67,12 +67,12 @@ export default function RolunkPage() {
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-full border-2 font-display text-xl font-semibold"
                   style={{
-                    borderColor: m.placeholder ? `${ACCENT}40` : ACCENT,
-                    color: m.placeholder ? "#8888A0" : ACCENT,
-                    background: m.placeholder ? "transparent" : `${ACCENT}12`,
+                    borderColor: ACCENT,
+                    color: ACCENT,
+                    background: `${ACCENT}12`,
                   }}
                 >
-                  {m.placeholder ? "?" : m.nev.split(" ").map((n) => n[0]).join("")}
+                  {m.nev.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-ink">{m.nev}</h3>
                 <p className="mt-1 text-sm text-muted">{m.szerep}</p>

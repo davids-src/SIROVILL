@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
@@ -8,19 +9,9 @@ import { Card } from "@/components/Card";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
+import { trackEvent } from "@/lib/analytics";
 
 const ACCENT = SITE.accent;
-
-export const metadata: Metadata = {
-  title: "Szolgáltatásaink — villanyszerelés, felújítás, kábelezés",
-  description:
-    "Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés — cégeknek és magánszemélyeknek. A kivitelezés november 1-től indul, a felmérés már most díjmentes.",
-  openGraph: {
-    title: "Szolgáltatásaink — SIROVILL",
-    url: "https://sirovill.hu/szolgaltatasok",
-  },
-  alternates: { canonical: "https://sirovill.hu/szolgaltatasok" },
-};
 
 export default function SzolgaltatasokPage() {
   return (
@@ -34,7 +25,7 @@ export default function SzolgaltatasokPage() {
               Szolgáltatásaink
             </h1>
             <p className="mt-5 text-base text-muted sm:text-lg">
-              Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés — cégeknek és magánszemélyeknek. A kivitelezés november 1-től indul, a felmérés már most díjmentes.
+              Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés. Cégeknek és magánembereknek is dolgozunk.
             </p>
           </Reveal>
         </div>
@@ -49,7 +40,19 @@ export default function SzolgaltatasokPage() {
                 <h2 className="mt-4 text-lg font-semibold text-ink">{s.cim}</h2>
                 <p className="mt-2 text-sm text-muted">{s.szoveg}</p>
                 <div className="mt-5 border-t border-line/50 pt-4">
-                  <TextLink to={`/szolgaltatasok/${s.slug}`} className="text-amber">Részletek</TextLink>
+                  <TextLink
+                    to={`/szolgaltatasok/${s.slug}`}
+                    className="text-amber"
+                    onClick={() =>
+                      trackEvent("cta_click", {
+                        cta_label: "Részletek",
+                        cta_location: "szolgaltatas_kartya",
+                        service_slug: s.slug,
+                      })
+                    }
+                  >
+                    Részletek
+                  </TextLink>
                 </div>
               </Card>
             </Reveal>
@@ -64,7 +67,7 @@ export default function SzolgaltatasokPage() {
             Amit nem vállalunk
           </h2>
           <p className="mt-5 text-base text-muted sm:text-lg">
-            Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki ilyen jegyzőkönyvet — ez külön jogosultsághoz kötött tevékenység. Nem foglalkozunk mérőhely-kialakítással és fogyasztásmérő bekötésével — ehhez áramszolgáltatói regisztráció szükséges.
+            Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki jegyzőkönyvet. Mérőhely-kialakítással és fogyasztásmérő bekötésével sem foglalkozunk. Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk — szóljon előre, és megszervezzük.
           </p>
           <div className="mt-8 rounded-lg border p-6" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}12` }}>
             <div className="flex items-start gap-3">
@@ -82,13 +85,22 @@ export default function SzolgaltatasokPage() {
         <div className="relative mx-auto max-w-site px-6 text-center">
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              Foglalja le a novemberi időpontját
+              Kezdjük egy felméréssel
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">
-              A felmérés és az ajánlat díjmentes. Az előjegyzés most nyitva.
+              Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. Ennyi.
             </p>
             <div className="mt-9 flex justify-center">
-              <ButtonLink to="/kapcsolat?forras=sirovill-szolgaltatasok" variant="accent">
+              <ButtonLink
+                to="/kapcsolat?forras=zaro-cta"
+                variant="accent"
+                onClick={() =>
+                  trackEvent("cta_click", {
+                    cta_label: "Kérem az ingyenes felmérést",
+                    cta_location: "zaro_cta",
+                  })
+                }
+              >
                 Kérem az ingyenes felmérést
                 <ArrowRight size={16} />
               </ButtonLink>

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, type FormEvent, Suspense } from "react";
+import { useState, useEffect, useRef, type FormEvent, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Check, AlertCircle, Send, Clock, MapPin, Phone, Mail } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
 import { SITE } from "@/lib/site";
+import { trackEvent, getSourceParam } from "@/lib/analytics";
 
 const ACCENT = SITE.accent;
 
@@ -53,12 +54,27 @@ function Field({
 
 function KapcsolatFormInner() {
   const searchParams = useSearchParams();
-  const forras = searchParams.get("forras") ?? "sirovill-kapcsolat";
+  const forras = searchParams.get("forras") || getSourceParam();
 
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [gdpr, setGdpr] = useState(false);
   const [gdprError, setGdprError] = useState(false);
+
+  const formStartedRef = useRef(false);
+
+  const handleFormStart = () => {
+    if (!formStartedRef.current) {
+      formStartedRef.current = true;
+      trackEvent("form_start", { form_source: forras });
+    }
+  };
+
+  const handleFieldBlur = (fieldName: string, value: string) => {
+    if (value && value.trim().length > 0) {
+      trackEvent("form_field_complete", { field_name: fieldName });
+    }
+  };
 
   useEffect(() => {
     if (gdpr) setGdprError(false);
@@ -68,6 +84,7 @@ function KapcsolatFormInner() {
     e.preventDefault();
     if (!gdpr) {
       setGdprError(true);
+      trackEvent("form_error", { error_type: "validation" });
       return;
     }
     setStatus("submitting");
@@ -75,12 +92,17 @@ function KapcsolatFormInner() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const nev = data.get("nev") as string;
+    const email = data.get("email") as string;
+    const helyszin = data.get("helyszin") as string;
+    const munka = data.get("munka") as string;
+
     const payload = {
-      nev: data.get("nev"),
-      email: data.get("email"),
+      nev,
+      email,
       telefon: data.get("telefon"),
-      helyszinTipus: data.get("helyszin"),
-      munkaTipus: data.get("munka"),
+      helyszinTipus: helyszin,
+      munkaTipus: munka,
       uzenet: data.get("uzenet"),
       forras,
       gdpr: true,
@@ -96,16 +118,24 @@ function KapcsolatFormInner() {
 
       if (res.ok && json.success === true) {
         setStatus("success");
+        trackEvent("generate_lead", {
+          form_source: forras,
+          munka_tipus: munka,
+          helyszin_tipus: helyszin,
+        });
         form.reset();
         setGdpr(false);
+        formStartedRef.current = false;
       } else {
         setStatus("error");
+        trackEvent("form_error", { error_type: "email_failed" });
         setErrorMsg(
           "Hiba történt a küldés során. Kérjük, próbálja újra, vagy hívjon minket: +36 70 273 5532."
         );
       }
     } catch {
       setStatus("error");
+      trackEvent("form_error", { error_type: "network" });
       setErrorMsg(
         "Hiba történt a küldés során. Kérjük, próbálja újra, vagy hívjon minket: +36 70 273 5532."
       );
@@ -141,20 +171,49 @@ function KapcsolatFormInner() {
             <input type="hidden" name="forras" value={forras} />
 
             <Field label="Név" required>
-              <input type="text" name="nev" required className={inputCls} placeholder="Teljes név" />
+              <input
+                type="text"
+                name="nev"
+                required
+                className={inputCls}
+                placeholder="Teljes név"
+                onFocus={handleFormStart}
+                onBlur={(e) => handleFieldBlur("nev", e.target.value)}
+              />
             </Field>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field label="E-mail" required>
-                <input type="email" name="email" required className={inputCls} placeholder="pelda@email.hu" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className={inputCls}
+                  placeholder="pelda@email.hu"
+                  onFocus={handleFormStart}
+                  onBlur={(e) => handleFieldBlur("email", e.target.value)}
+                />
               </Field>
               <Field label="Telefonszám">
-                <input type="tel" name="telefon" className={inputCls} placeholder="+36 ..." />
+                <input
+                  type="tel"
+                  name="telefon"
+                  className={inputCls}
+                  placeholder="+36 ..."
+                  onFocus={handleFormStart}
+                />
               </Field>
             </div>
 
             <Field label="Ingatlan / helyszín típusa" required>
-              <select name="helyszin" required className={inputCls} defaultValue="">
+              <select
+                name="helyszin"
+                required
+                className={inputCls}
+                defaultValue=""
+                onFocus={handleFormStart}
+                onChange={(e) => handleFieldBlur("helyszinTipus", e.target.value)}
+              >
                 <option value="" disabled>Válasszon…</option>
                 {helyszinTipusok.map((h) => (
                   <option key={h} value={h}>{h}</option>
@@ -163,7 +222,14 @@ function KapcsolatFormInner() {
             </Field>
 
             <Field label="Milyen munkát szeretne?" required>
-              <select name="munka" required className={inputCls} defaultValue="">
+              <select
+                name="munka"
+                required
+                className={inputCls}
+                defaultValue=""
+                onFocus={handleFormStart}
+                onChange={(e) => handleFieldBlur("munkaTipus", e.target.value)}
+              >
                 <option value="" disabled>Válasszon…</option>
                 {munkaTipusok.map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -177,6 +243,7 @@ function KapcsolatFormInner() {
                 rows={4}
                 className={inputCls}
                 placeholder="Milyen munkáról van szó? Bármilyen részlet segít."
+                onFocus={handleFormStart}
               />
             </Field>
 
@@ -232,11 +299,23 @@ function KapcsolatFormInner() {
             <ul className="mt-5 space-y-4 text-sm">
               <li className="flex items-start gap-3 text-ink">
                 <Phone size={18} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
-                <a href={SITE.telefonHref} className="hover:text-amber transition-colors duration-150">{SITE.telefon}</a>
+                <a
+                  href={SITE.telefonHref}
+                  onClick={() => trackEvent("phone_click", { location: "kapcsolat" })}
+                  className="hover:text-amber transition-colors duration-150"
+                >
+                  {SITE.telefon}
+                </a>
               </li>
               <li className="flex items-start gap-3 text-ink">
                 <Mail size={18} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
-                <a href={`mailto:${SITE.email}`} className="hover:text-amber transition-colors duration-150">{SITE.email}</a>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  onClick={() => trackEvent("email_click", { location: "kapcsolat" })}
+                  className="hover:text-amber transition-colors duration-150"
+                >
+                  {SITE.email}
+                </a>
               </li>
               <li className="flex items-start gap-3 text-ink">
                 <MapPin size={18} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
@@ -258,8 +337,7 @@ function KapcsolatFormInner() {
             style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}12` }}
           >
             <p className="text-sm text-ink">
-              A felmérés és a rögzített áras ajánlat már most díjmentes. A kivitelezés 2026.
-              november 1-től indul.
+              A felmérés és az árajánlat díjmentes. Az ütemezést a felmérés után egyeztetjük.
             </p>
           </div>
         </div>

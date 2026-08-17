@@ -8,6 +8,7 @@ import { Section } from "@/components/Section";
 import { ButtonLink } from "@/components/Button";
 import { getPostBySlug, getAllPublishedSlugs } from "@/lib/blog";
 import { SITE } from "@/lib/site";
+import { BlogReadTracker } from "@/components/Trackers";
 
 const ACCENT = SITE.accent;
 
@@ -48,6 +49,7 @@ export default async function BlogPostPage({
 
   return (
     <>
+      <BlogReadTracker slug={slug} category={post.category} />
       <section className="relative overflow-hidden border-b border-line/50 pt-36 pb-20 sm:pt-44">
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-site px-6">
@@ -97,10 +99,14 @@ export default async function BlogPostPage({
                 Kérdése van? Hívjon, vagy kérjen felmérést.
               </h3>
               <p className="mt-3 text-sm text-muted">
-                A felmérés díjmentes és kötelezettségmentes. A kivitelezés 2026. november 1-től indul.
+                A felmérés díjmentes, és nem kötelezi semmire.
               </p>
               <div className="mt-6 space-y-3">
-                <ButtonLink to="/kapcsolat?forras=sirovill-blog" variant="accent" className="w-full">
+                <ButtonLink
+                  to={`/kapcsolat?forras=blog-${slug}`}
+                  variant="accent"
+                  className="w-full"
+                >
                   Ingyenes felmérés kérése
                 </ButtonLink>
                 <Link
@@ -119,7 +125,6 @@ export default async function BlogPostPage({
   );
 }
 
-// Simple Markdown to HTML converter (no extra dependency needed)
 function markdownToHtml(markdown: string): string {
   return markdown
     .replace(/^### (.+)$/gm, "<h3>$1</h3>")

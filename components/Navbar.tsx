@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/site";
+import { trackEvent } from "@/lib/analytics";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -41,6 +42,12 @@ export function Navbar() {
         <div className="hidden md:block">
           <Link
             href="/kapcsolat"
+            onClick={() =>
+              trackEvent("cta_click", {
+                cta_label: "Ingyenes felmérés",
+                cta_location: "header",
+              })
+            }
             className="inline-flex items-center rounded bg-amber px-5 py-2.5 text-sm font-semibold text-bg transition-transform duration-150 ease-out hover:scale-[1.02]"
           >
             Ingyenes felmérés
@@ -71,6 +78,12 @@ export function Navbar() {
             ))}
             <Link
               href="/kapcsolat"
+              onClick={() =>
+                trackEvent("cta_click", {
+                  cta_label: "Ingyenes felmérés",
+                  cta_location: "header_mobile",
+                })
+              }
               className="mt-2 inline-flex items-center justify-center rounded bg-amber px-5 py-2.5 text-sm font-semibold text-bg"
             >
               Ingyenes felmérés

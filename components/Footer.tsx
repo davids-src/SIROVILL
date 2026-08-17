@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram, ArrowUpRight } from "lucide-react";
 import { SITE, DIVIZIOK, SOCIAL, NAV } from "@/lib/site";
 import { SirovillLogo } from "./Navbar";
+import { trackEvent } from "@/lib/analytics";
 
 const SOCIAL_ICONS = { Facebook, Linkedin, Instagram } as const;
 
@@ -16,24 +19,27 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm text-muted">
               Villanyszerelés a SIROTECH cégcsoportban.
             </p>
-            <div className="mt-5 flex gap-3">
-              {SOCIAL.filter((s) => s.href).map((s) => {
-                const Icon = SOCIAL_ICONS[s.icon];
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="text-muted transition-colors duration-150 hover:text-amber"
-                  >
-                    <Icon size={20} strokeWidth={1.5} />
-                  </a>
-                );
-              })}
-            </div>
+            {SOCIAL.length > 0 && (
+              <div className="mt-5 flex gap-3">
+                {SOCIAL.filter((s) => s.href).map((s) => {
+                  const Icon = SOCIAL_ICONS[s.icon];
+                  return (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="text-muted transition-colors duration-150 hover:text-amber"
+                    >
+                      <Icon size={20} strokeWidth={1.5} />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
+
 
           <div>
             <h3 className="label text-muted">Szolgáltatások</h3>
@@ -58,6 +64,7 @@ export function Footer() {
                     href={d.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent("outbound_click", { target_site: d.href.replace("https://", ""), location: "footer" })}
                     className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors duration-150 hover:text-ink"
                   >
                     <span
@@ -77,17 +84,26 @@ export function Footer() {
             <h3 className="label mt-8 text-muted">Kapcsolat</h3>
             <ul className="mt-5 space-y-2 text-sm text-muted">
               <li>
-                <a href={SITE.telefonHref} className="hover:text-ink transition-colors duration-150">
+                <a
+                  href={SITE.telefonHref}
+                  onClick={() => trackEvent("phone_click", { location: "footer" })}
+                  className="hover:text-ink transition-colors duration-150"
+                >
                   {SITE.telefon}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${SITE.email}`} className="hover:text-ink transition-colors duration-150">
+                <a
+                  href={`mailto:${SITE.email}`}
+                  onClick={() => trackEvent("email_click", { location: "footer" })}
+                  className="hover:text-ink transition-colors duration-150"
+                >
                   {SITE.email}
                 </a>
               </li>
               <li>{SITE.cim}</li>
             </ul>
+
           </div>
         </div>
 

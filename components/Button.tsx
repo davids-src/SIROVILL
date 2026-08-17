@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -10,6 +10,7 @@ interface ButtonLinkProps {
   variant?: Variant;
   className?: string;
   external?: boolean;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const base =
@@ -28,17 +29,18 @@ export function ButtonLink({
   variant = "primary",
   className = "",
   external,
+  onClick,
 }: ButtonLinkProps) {
   const cls = `${base} ${variants[variant]} ${className}`;
   if (external) {
     return (
-      <a href={to} className={cls} target="_blank" rel="noopener noreferrer">
+      <a href={to} className={cls} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {children}
       </a>
     );
   }
   return (
-    <Link href={to} className={cls}>
+    <Link href={to} className={cls} onClick={onClick}>
       {children}
     </Link>
   );
@@ -49,9 +51,10 @@ interface TextLinkProps {
   children: ReactNode;
   className?: string;
   external?: boolean;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export function TextLink({ to, children, className = "", external }: TextLinkProps) {
+export function TextLink({ to, children, className = "", external, onClick }: TextLinkProps) {
   const cls = `group inline-flex items-center gap-1.5 text-sm font-semibold text-ink hover:text-amber transition-colors duration-150 ${className}`;
   const inner = (
     <>
@@ -65,10 +68,10 @@ export function TextLink({ to, children, className = "", external }: TextLinkPro
   );
   if (external) {
     return (
-      <a href={to} className={cls} target="_blank" rel="noopener noreferrer">
+      <a href={to} className={cls} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {inner}
       </a>
     );
   }
-  return <Link href={to} className={cls}>{inner}</Link>;
+  return <Link href={to} className={cls} onClick={onClick}>{inner}</Link>;
 }

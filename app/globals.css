@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #0A0A0C;
+  --surface: #111116;
+  --panel: #18181F;
+  --line: #2A2A35;
+  --ink: #F0F0F5;
+  --muted: #8888A0;
+  --silver: #C0C0D0;
+  --accent: #F5B81C;
+  --amber: #F5B81C;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

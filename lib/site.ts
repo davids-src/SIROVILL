@@ -11,7 +11,6 @@ export const SITE = {
   adoszam: "33056151-2-07",
   cegjegyzekszam: "07-09-037603",
   nyilvantarto: "Székesfehérvári Törvényszék Cégbírósága",
-  szakkepesites: "Villanyszerelő — 4 0713 04 07",
   szolgaltatasiTerulet: "Fejér megye, Budapest, Közép-Dunántúl",
 } as const;
 
@@ -42,11 +41,9 @@ export const DIVIZIOK = [
   },
 ] as const;
 
-export const SOCIAL = [
-  { label: "Facebook", href: "https://facebook.com", icon: "Facebook" as const },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "Linkedin" as const },
-  { label: "Instagram", href: "https://instagram.com", icon: "Instagram" as const },
-] as const;
+export type SocialItem = { label: string; href: string; icon: "Facebook" | "Linkedin" | "Instagram" };
+export const SOCIAL: readonly SocialItem[] = [] as const;
+
 
 export const NAV = [
   { label: "Kezdőlap", href: "/" },

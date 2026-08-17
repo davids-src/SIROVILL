@@ -9,7 +9,7 @@ const ACCENT = SITE.accent;
 export const metadata: Metadata = {
   title: "Kapcsolat — Ingyenes felmérés kérése",
   description:
-    "Kérje ingyenes felmérését. 1 munkanapon belül jelentkezünk az időpont-egyeztetésre. A felmérés és az ajánlat díjmentes, a kivitelezés november 1-től indul.",
+    "Kérje ingyenes felmérését. 1 munkanapon belül jelentkezünk az időpont-egyeztetésre. A felmérés és az árajánlat díjmentes.",
   openGraph: {
     title: "Kapcsolat — SIROVILL",
     description: "Kérje ingyenes felmérését. A felmérés díjmentes és kötelezettségmentes.",
@@ -36,13 +36,12 @@ export default function KapcsolatPage() {
               Kérje ingyenes felmérését
             </h1>
             <p className="mt-5 text-base text-muted sm:text-lg">
-              Töltse ki az űrlapot — 1 munkanapon belül jelentkezünk az
-              időpont-egyeztetésre. A felmérés és az ajánlat díjmentes, a
-              kivitelezés november 1-től indul.
+              Töltse ki az űrlapot, és 1 munkanapon belül jelentkezünk. A felmérés és az árajánlat nem kerül semmibe.
             </p>
           </Reveal>
         </div>
       </section>
+
 
       <Section>
         <KapcsolatForm />

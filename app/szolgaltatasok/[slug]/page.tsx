@@ -9,6 +9,11 @@ import { ButtonLink } from "@/components/Button";
 import { SERVICE_DETAILS } from "@/lib/serviceDetails";
 import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
+import { ElosztoDiagram } from "@/components/graphics/ElosztoDiagram";
+import { SzinhomersekletSkala } from "@/components/graphics/SzinhomersekletSkala";
+import { NyomvonalMetszet } from "@/components/graphics/NyomvonalMetszet";
+import { NullvezetekAbra } from "@/components/graphics/NullvezetekAbra";
+import { ServiceViewTracker } from "@/components/Trackers";
 
 const ACCENT = SITE.accent;
 
@@ -36,6 +41,22 @@ export async function generateMetadata({
   };
 }
 
+function renderGraphic(slug: string) {
+  switch (slug) {
+    case "villanyszereles-felujitas":
+      return <ElosztoDiagram />;
+    case "vilagitas-korszerusites":
+      return <SzinhomersekletSkala />;
+    case "kabelezes-epitkezeskor":
+    case "gyengearamu-kabelezes":
+      return <NyomvonalMetszet />;
+    case "okosotthon-vezerles":
+      return <NullvezetekAbra />;
+    default:
+      return null;
+  }
+}
+
 export default async function ServiceDetailPage({
   params,
 }: {
@@ -43,10 +64,14 @@ export default async function ServiceDetailPage({
 }) {
   const { slug } = await params;
   const detail = SERVICE_DETAILS[slug];
+
   if (!detail) notFound();
+
+  const Graphic = renderGraphic(slug);
 
   return (
     <>
+      <ServiceViewTracker slug={slug} name={detail.h1} />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line/50 pt-36 pb-20 sm:pt-44">
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
@@ -117,6 +142,15 @@ export default async function ServiceDetailPage({
               </div>
             </Reveal>
 
+            {/* Graphic illustration */}
+            {Graphic && (
+              <Reveal>
+                <div className="mt-6">
+                  {Graphic}
+                </div>
+              </Reveal>
+            )}
+
             {/* Mit ne várjon */}
             {detail.mitNeVarjon && (
               <Reveal>
@@ -185,7 +219,7 @@ export default async function ServiceDetailPage({
                   Kérje ingyenes felmérését
                 </h3>
                 <p className="mt-3 text-sm text-muted">
-                  Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk. A felmérés díjmentes és kötelezettségmentes. A kivitelezés 2026. november 1-től indul.
+                  Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk. Ez nem kerül semmibe, és nem kötelezi semmire.
                 </p>
                 <div className="mt-6 space-y-3">
                   <ButtonLink
@@ -193,7 +227,7 @@ export default async function ServiceDetailPage({
                     variant="accent"
                     className="w-full"
                   >
-                    Kérem az ingyenes felmérést
+                    Kérem az ingyenes felmérését
                     <ArrowRight size={16} />
                   </ButtonLink>
                   <Link

@@ -1,58 +1,83 @@
-import type { Metadata } from "next";
-import { motion } from "framer-motion";
+"use client";
+
 import { Check, ArrowRight, Building2, ShieldCheck, BadgeCheck } from "lucide-react";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal, staggerParent, staggerChild } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/Eyebrow";
 import { ButtonLink, TextLink } from "@/components/Button";
 import { Card, Chip } from "@/components/Card";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { SERVICES } from "@/lib/services";
 import { SITE, DIVIZIOK } from "@/lib/site";
+import { EpitkezesiIdovonal } from "@/components/graphics/EpitkezesiIdovonal";
+import { trackEvent } from "@/lib/analytics";
 
 const ACCENT = SITE.accent;
 
-export const metadata: Metadata = {
-  title: "SIROVILL — Villanyszerelés | Fejér megye, Budapest",
-  description:
-    "Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés cégeknek és magánszemélyeknek. Ingyenes felmérés, rögzített áras ajánlat.",
-  openGraph: {
-    title: "SIROVILL — Villanyszerelés",
-    description: "Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés. Ingyenes felmérés.",
-    url: "https://sirovill.hu",
-  },
-  alternates: { canonical: "https://sirovill.hu" },
-};
-
 const heroBullets = [
-  "Ingyenes, kötelezettségmentes felmérés",
-  "Rögzített áras ajánlat, ami a kezdésig nem változik",
-  "Ugyanaz a csapat, amelyik a hálózatot és a kamerarendszert is telepíti",
+  "Ingyenes helyszíni felmérés",
+  "Rögzített ár, ami a kivitelezésig nem változik",
+  "Ugyanaz a csapat, amelyik a hálózatot és a kamerát is szereli",
 ];
 
 const stats = [
-  { ertek: "November 1.", cimke: "KIVITELEZÉS KEZDETE" },
   { ertek: "1 munkanap", cimke: "VÁLASZIDŐ MEGKERESÉSRE" },
-  { ertek: "4 0713 04 07", cimke: "VILLANYSZERELŐI SZAKKÉPESÍTÉS" },
+  { ertek: "Fejér m. · Budapest", cimke: "HELYSZÍNI LEFEDETTSÉG" },
+  { ertek: "Rögzített ár", cimke: "AJÁNLATTÓL A SZÁMLÁIG" },
 ];
 
-const miertMostOkok = [
-  { cim: "Most még válogathat az időpontok között", szoveg: "November előrehaladtával egyre kevesebb szabad hely marad." },
-  { cim: "A felmérés most díjmentes", szoveg: "Kimegyünk, felmérjük, megtervezzük — kötelezettség nélkül." },
-  { cim: "Az ár rögzített", szoveg: "Amit a felmérés után ajánlunk, az nem változik novemberig." },
+const hogyanDolgozunkKartyak = [
+  {
+    szam: "01",
+    cim: "Felmérés",
+    szoveg: "Kimegyünk, megnézzük a helyszínt, és megbeszéljük, mi kell. Ez nem kerül semmibe.",
+  },
+  {
+    szam: "02",
+    cim: "Árajánlat",
+    szoveg: "Tételes, rögzített áras ajánlatot kap. Nincs benne meglepetés.",
+  },
+  {
+    szam: "03",
+    cim: "Ütemezés",
+    szoveg: "Egyeztetjük az időpontot úgy, hogy illeszkedjen a többi munkához az építkezésen.",
+  },
+  {
+    szam: "04",
+    cim: "Kivitelezés",
+    szoveg: "Elvégezzük, átadjuk, és megmutatjuk, mi hova került.",
+  },
 ];
 
 const gyikKerdesek = [
-  { kerdes: "Miért csak november 1-től indul a kivitelezés?", valasz: "Mert egyetlen villanyszerelő kollégánk kapacitása véges, és felelősen csak annyi munkát vállalunk el, amennyit ténylegesen el is tudunk végezni. A felmérés és az ajánlat viszont már most díjmentes." },
-  { kerdes: "Miért nem vállalnak felülvizsgálatot?", valasz: "Mert az külön jogosultsághoz kötött tevékenység, amivel jelenleg nem rendelkezünk. Ha a munkához jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk." },
-  { kerdes: "Kell fizetnem a felmérésért?", valasz: "Nem. A helyszíni felmérés és a rögzített áras ajánlat is díjmentes." },
-  { kerdes: "Mennyi ideig érvényes az ajánlott ár?", valasz: "A felmérés után adott ajánlat a novemberi kezdésig rögzített marad." },
-  { kerdes: "Vállalnak munkát magánszemélyeknek is?", valasz: "Igen, cégeknek és magánszemélyeknek egyaránt dolgozunk." },
+  {
+    kerdes: "Mennyi idő alatt tudnak kezdeni?",
+    valasz:
+      "A munka méretétől és az aktuális ütemezéstől függ. A felmérés után konkrét időpontot adunk — és azt tartjuk is.",
+  },
+  {
+    kerdes: "Meddig érvényes az árajánlat?",
+    valasz:
+      "A rögzített ár a kivitelezésig érvényes marad. Ha menet közben Ön kér változtatást, azt előre egyeztetjük.",
+  },
+  {
+    kerdes: "Miért nem vállalnak felülvizsgálatot?",
+    valasz:
+      "Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki jegyzőkönyvet. Mérőhely-kialakítással és fogyasztásmérő bekötésével sem foglalkozunk. Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk — szóljon előre, és megszervezzük.",
+  },
+  {
+    kerdes: "Kell fizetnem a felmérésért?",
+    valasz: "Nem. A helyszíni felmérés és a rögzített áras ajánlat is díjmentes.",
+  },
+  {
+    kerdes: "Vállalnak munkát magánszemélyeknek is?",
+    valasz: "Igen, cégeknek és magánembereknek is dolgozunk.",
+  },
 ];
 
 const bizalmi = [
-  { cimke: "Szakképesítés", ertek: SITE.szakkepesites },
   { cimke: "Cégjegyzékszám", ertek: SITE.cegjegyzekszam },
+  { cimke: "Adószám", ertek: SITE.adoszam },
   { cimke: "Felelősségbiztosítás", ertek: "Rendelkezünk" },
 ];
 
@@ -67,12 +92,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <Reveal>
-                <Eyebrow accent={ACCENT}>SIROTECH GROUP — ÚJ SZOLGÁLTATÁS</Eyebrow>
-                <h1 className="mt-6 text-4xl font-bold text-ink sm:text-5xl lg:text-6xl" style={{ letterSpacing: "-0.04em", lineHeight: 1.05 }}>
-                  Villanyszerelés — novemberi kezdéssel
+                <Eyebrow accent={ACCENT}>SIROTECH GROUP — VILLANYSZERELÉS</Eyebrow>
+                <h1
+                  className="mt-6 text-4xl font-bold text-ink sm:text-5xl lg:text-6xl"
+                  style={{ letterSpacing: "-0.04em", lineHeight: 1.05 }}
+                >
+                  Villanyszerelés, ahol a kábel is a helyén marad
                 </h1>
                 <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
-                  Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés — cégeknek és magánszemélyeknek. A felmérés és a rögzített áras ajánlat már most díjmentes. A kivitelezés 2026. november 1-től indul.
+                  Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés. Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk — ez nem kerül semmibe.
                 </p>
               </Reveal>
               <Reveal delay={0.15} className="mt-9">
@@ -86,11 +114,29 @@ export default function HomePage() {
                 </ul>
               </Reveal>
               <Reveal delay={0.25} className="mt-10 flex flex-wrap gap-3">
-                <ButtonLink to="/kapcsolat?forras=sirovill-hero" variant="accent">
+                <ButtonLink
+                  to="/kapcsolat?forras=hero"
+                  variant="accent"
+                  onClick={() =>
+                    trackEvent("cta_click", {
+                      cta_label: "Kérem az ingyenes felmérést",
+                      cta_location: "hero",
+                    })
+                  }
+                >
                   Kérem az ingyenes felmérést
                   <ArrowRight size={16} />
                 </ButtonLink>
-                <ButtonLink to="/szolgaltatasok" variant="outline">
+                <ButtonLink
+                  to="/szolgaltatasok"
+                  variant="outline"
+                  onClick={() =>
+                    trackEvent("cta_click", {
+                      cta_label: "Szolgáltatásaink",
+                      cta_location: "hero",
+                    })
+                  }
+                >
                   Szolgáltatásaink
                 </ButtonLink>
               </Reveal>
@@ -100,13 +146,23 @@ export default function HomePage() {
                 <Card accent={ACCENT} glow className="p-6">
                   <div className="flex items-center gap-3">
                     <BadgeCheck size={24} strokeWidth={1.5} style={{ color: ACCENT }} />
-                    <span className="label text-muted">ELŐJEGYZÉS NYITVA</span>
+                    <span className="label text-muted">DÍJMENTES FELMÉRÉS</span>
                   </div>
                   <p className="mt-4 text-sm text-ink">
-                    A felmérés és a rögzített áras ajánlat már most díjmentes. A kivitelezés november 1-től indul.
+                    Kimegyünk, felmérjük, és rögzített áras ajánlatot adunk — ez nem kerül semmibe.
                   </p>
                   <div className="mt-5 border-t border-line/50 pt-5">
-                    <TextLink to="/kapcsolat?forras=sirovill-hero-card">Időpont foglalása</TextLink>
+                    <TextLink
+                      to="/kapcsolat?forras=hero-card"
+                      onClick={() =>
+                        trackEvent("cta_click", {
+                          cta_label: "Időpont egyeztetése",
+                          cta_location: "hero",
+                        })
+                      }
+                    >
+                      Időpont egyeztetése
+                    </TextLink>
                   </div>
                 </Card>
               </Reveal>
@@ -117,7 +173,7 @@ export default function HomePage() {
               {stats.map((s) => (
                 <div key={s.cimke} className="bg-surface p-6">
                   <dt className="label text-muted">{s.cimke}</dt>
-                  <dd className="mt-3 font-display text-2xl font-semibold text-ink">{s.ertek}</dd>
+                  <dd className="mt-3 font-display text-xl font-semibold text-ink sm:text-2xl">{s.ertek}</dd>
                 </div>
               ))}
             </dl>
@@ -125,25 +181,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Miért most */}
+      {/* Hogyan dolgozunk */}
       <Section className="border-t border-line/50">
         <SectionHeading
-          eyebrow="ELŐJEGYZÉS NYITVA"
-          h2="Miért érdemes most jelentkezni?"
-          lead="Egy szakember kapacitása véges. Aki novemberre szeretne kezdést, annak érdemes most lefoglalnia az időpontot — a rögzített ár a jelentkezéskor megállapított összeg marad, a kezdésig nem változik."
+          eyebrow="HOGYAN DOLGOZUNK"
+          h2="Négy lépés, és kész"
+          lead="A felméréstől a kész munkáig — hogy tudja, mire számíthat."
         />
-        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {miertMostOkok.map((o, i) => (
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {hogyanDolgozunkKartyak.map((o, i) => (
             <Reveal key={o.cim} delay={i * 0.08}>
-              <Card accent={ACCENT} glow>
+              <Card accent={ACCENT} glow className="h-full">
                 <span className="font-display text-3xl font-bold" style={{ color: `${ACCENT}80` }}>
-                  {String(i + 1).padStart(2, "0")}
+                  {o.szam}
                 </span>
                 <h3 className="mt-4 text-lg font-semibold text-ink">{o.cim}</h3>
                 <p className="mt-2 text-sm text-muted">{o.szoveg}</p>
               </Card>
             </Reveal>
           ))}
+        </div>
+        <div className="mt-12">
+          <EpitkezesiIdovonal />
         </div>
       </Section>
 
@@ -152,7 +211,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="SZOLGÁLTATÁSOK"
           h2="Amit vállalunk"
-          lead="Kizárólag olyan munkát vállalunk, ami a villanyszerelői szakképesítésünk keretébe tartozik — ezt szándékosan mondjuk ki, mert fontosnak tartjuk, hogy pontosan tudja, mire számíthat."
+          lead="Épületvillamossági kivitelezés, felújítás, hibaelhárítás, kábelezés és okosotthon-vezérlés."
           accent={ACCENT}
         />
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -163,14 +222,35 @@ export default function HomePage() {
                 <h3 className="mt-4 text-lg font-semibold text-ink">{s.cim}</h3>
                 <p className="mt-2 text-sm text-muted">{s.szoveg}</p>
                 <div className="mt-5 border-t border-line/50 pt-4">
-                  <TextLink to={`/szolgaltatasok/${s.slug}`} className="text-amber">Részletek</TextLink>
+                  <TextLink
+                    to={`/szolgaltatasok/${s.slug}`}
+                    className="text-amber"
+                    onClick={() =>
+                      trackEvent("cta_click", {
+                        cta_label: "Részletek",
+                        cta_location: "szolgaltatas_kartya",
+                        service_slug: s.slug,
+                      })
+                    }
+                  >
+                    Részletek
+                  </TextLink>
                 </div>
               </Card>
             </Reveal>
           ))}
         </div>
         <Reveal className="mt-10">
-          <ButtonLink to="/szolgaltatasok" variant="outline">
+          <ButtonLink
+            to="/szolgaltatasok"
+            variant="outline"
+            onClick={() =>
+              trackEvent("cta_click", {
+                cta_label: "Részletes szolgáltatáslista",
+                cta_location: "szolgaltatas_kartya",
+              })
+            }
+          >
             Részletes szolgáltatáslista
             <ArrowRight size={16} />
           </ButtonLink>
@@ -179,7 +259,7 @@ export default function HomePage() {
 
       {/* Amit nem vállalunk */}
       <Section className="border-t border-line/50">
-        <SectionHeading eyebrow="ÁTLÁTHATÓSÁG" h2="Amit nem vállalunk" lead="Fontosnak tartjuk ezt is kimondani, mielőtt bárki feltételezésekbe bocsátkozna." accent={ACCENT} />
+        <SectionHeading eyebrow="ÁTLÁTHATÓSÁG" h2="Amit nem vállalunk" accent={ACCENT} />
         <Reveal className="mt-14 max-w-3xl">
           <p className="text-base text-muted sm:text-lg">
             Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki ilyen jegyzőkönyvet — ez külön jogosultsághoz kötött tevékenység. Nem foglalkozunk mérőhely-kialakítással és fogyasztásmérő bekötésével — ehhez áramszolgáltatói regisztráció szükséges.
@@ -199,14 +279,14 @@ export default function HomePage() {
       <Section className="border-t border-line/50">
         <SectionHeading
           eyebrow="SIROTECH GROUP"
-          h2="Miért logikus ez a bővülés?"
-          lead="Egy irodafelújításnál vagy építkezésnél ma jellemzően három szakember kell: egy villanyszerelő, egy hálózatépítő és egy biztonságtechnikus. Mindhárman ugyanabba a falba dolgoznak, ugyanazon a nyomvonalon, gyakran egymás után — és a koordináció az ügyfél feladata marad."
+          h2="Egy fal, három szakma"
+          lead="Egy irodafelújításon ma három szakember dolgozik ugyanabba a falba: villanyszerelő, hálózatépítő, biztonságtechnikus. Ugyanaz a nyomvonal, három külön időpont — és a koordináció az ügyfélé."
           accent={ACCENT}
         />
         <Reveal className="mt-14 max-w-3xl">
           <div className="rounded-lg border border-line bg-surface p-8">
             <p className="font-display text-xl font-semibold text-ink sm:text-2xl" style={{ letterSpacing: "-0.02em" }}>
-              Ha ugyanaz a csapat csinálja, egy egyeztetés van, egy ütemezés — és nincs kinek mutogatni, ha valami nem stimmel.
+              Nálunk ez egy csapat, egy ütemezés. Ha valami nem stimmel, nincs kinek mutogatni.
             </p>
           </div>
         </Reveal>
@@ -219,7 +299,14 @@ export default function HomePage() {
                   <span className="label" style={{ color: d.szin }}>{d.nev}</span>
                 </div>
                 <p className="mt-4 text-sm text-ink">{d.szoveg}</p>
-                <a href={d.href} target="_blank" rel="noopener noreferrer" className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-150" style={{ color: d.szin }}>
+                <a
+                  href={d.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("outbound_click", { target_site: d.href.replace("https://", ""), location: "egy_kezbol_panel" })}
+                  className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-150"
+                  style={{ color: d.szin }}
+                >
                   Megnyitás
                   <ArrowRight size={16} className="transition-transform duration-150 group-hover:translate-x-1" />
                 </a>
@@ -270,15 +357,24 @@ export default function HomePage() {
         <div className="ambient-glow absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-site px-6 text-center">
           <Reveal>
-            <Chip accent={ACCENT}>ELŐJEGYZÉS NYITVA</Chip>
+            <Chip accent={ACCENT}>DÍJMENTES FELMÉRÉS</Chip>
             <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              Foglalja le a novemberi időpontját
+              Kezdjük egy felméréssel
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">
-              A felmérés és az ajánlat díjmentes. Az előjegyzés most nyitva.
+              Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. Ennyi.
             </p>
             <div className="mt-9 flex justify-center">
-              <ButtonLink to="/kapcsolat?forras=sirovill-zaro" variant="accent">
+              <ButtonLink
+                to="/kapcsolat?forras=zaro-cta"
+                variant="accent"
+                onClick={() =>
+                  trackEvent("cta_click", {
+                    cta_label: "Kérem az ingyenes felmérést",
+                    cta_location: "zaro_cta",
+                  })
+                }
+              >
                 Kérem az ingyenes felmérést
                 <ArrowRight size={16} />
               </ButtonLink>

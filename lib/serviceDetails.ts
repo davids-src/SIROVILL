@@ -29,13 +29,13 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     h1: "Villanyszerelés és felújítás",
     title: "Villanyszerelés, felújítás, áramkör-bővítés | SIROVILL",
     description:
-      "Dugaljak, kapcsolók, világítási körök, áramkör-bővítés és elosztószekrény szerelése. Ingyenes felmérés, novemberi kezdés.",
-    lead: "Új dugaljak, kapcsolók, világítási körök kialakítása, meglévő hálózat felújítása, elosztószekrény bővítése — lakóingatlanban, irodában és telephelyen egyaránt.",
+      "Dugaljak, kapcsolók, világítási körök, áramkör-bővítés és elosztószekrény szerelése. Ingyenes helyszíni felmérés, rögzített áras ajánlat.",
+    lead: "Új konnektorok, kapcsolók, világítási körök, meglévő hálózat felújítása, elosztó bővítése. Lakásban, irodában, telephelyen.",
     mikor: [
       {
         cim: "Ha kevés a konnektor",
         szoveg:
-          "A legtöbb 15-20 évnél régebbi ingatlant még olyan eszközparkhoz tervezték, ami azóta megsokszorozódott. Ilyenkor jönnek az elosztók, a hosszabbítók, és a terhelés egyetlen áramkörre koncentrálódik.",
+          "Egy 20 éves lakásba szobánként két konnektort terveztek. Ma annyi minden van bedugva, hogy elosztóra elosztó jön — és a végén minden egyetlen áramkörön lóg.",
       },
       {
         cim: "Ha bővül a helyiség vagy a funkció",
@@ -45,26 +45,26 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       {
         cim: "Ha felújítás zajlik",
         szoveg:
-          "Amíg nyitva a fal, olcsóbb rendbe tenni a hálózatot, mint később visszabontani.",
+          "Amíg nyitva a fal, ez pár óra munka. Utána vésni kell.",
       },
       {
         cim: "Ha az elosztószekrény tele van",
         szoveg:
-          "Nincs hova új kismegszakítót tenni, vagy még régi típusú, cserélendő szerelvények vannak benne.",
+          "Nincs hely a kalapsínen, vagy még olvadóbiztosítós tábla van a falon.",
       },
     ],
     mitCsinalunk: [
-      "Dugaljak, kapcsolók, csatlakozási pontok kialakítása",
-      "Új áramkörök kiépítése — külön kör a nagyfogyasztóknak",
-      "Elosztószekrény bővítése vagy cseréje",
-      "Kismegszakítók, áram-védőkapcsolók cseréje",
-      "Elavult vezetékek cseréje, alumínium helyett réz",
-      "Terhelés felmérése a bővítés előtt",
+      "Konnektorok, kapcsolók, kötődobozok kialakítása",
+      "Új áramkör húzása — külön kör a nagyfogyasztóknak",
+      "Elosztó bővítése, kalapsínes szerelés",
+      "Olvadóbiztosítós tábla cseréje kismegszakítósra",
+      "FI-relé beépítése, ha még nincs",
+      "Alumínium vezeték cseréje rézre",
     ],
     amireFigyelunk:
-      "Bővítés előtt mindig megnézzük, mit bír a meglévő rendszer. Egy új áramkör önmagában nem sokat ér, ha a főbiztosíték vagy a betáplálás nem elég hozzá — ezt előre kell tisztázni, nem a munka közepén.\n\nA nagyfogyasztókat (mosogatógép, klíma, elektromos főzőlap, műhelygép) érdemes külön áramkörre tenni. Így ha egy eszköz hibásodik meg, nem az egész lakás áramtalanodik.",
+      "Mielőtt bővítünk, megnézzük a betápot. Hiába húzunk új áramkört, ha a főbiztosíték nem bírja el — ezt előre tisztázzuk, nem a munka közepén derül ki.\n\nA nagyfogyasztóknak külön kör jár: mosogatógép, klíma, főzőlap, műhelygép. Így ha az egyik meghibásodik, nem sötétedik el a fél lakás.",
     mitNeVarjon:
-      "Nem végzünk érintésvédelmi vagy szabványossági felülvizsgálatot, és nem állítunk ki ilyen jegyzőkönyvet — ez külön jogosultsághoz kötött. Mérőhely-kialakítással és fogyasztásmérő bekötésével sem foglalkozunk. Ha a munkához felülvizsgálati jegyzőkönyv szükséges, azt partnerünkkel biztosítjuk.",
+      "Felülvizsgálatot és jegyzőkönyvet nem vállalunk — ha kell, partnerünk elvégzi.",
   },
 
   "vilagitas-korszerusites": {
@@ -73,7 +73,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     title: "LED világítás korszerűsítés irodába, üzembe, otthonra | SIROVILL",
     description:
       "Fénycsövek és izzók cseréje LED-re, új világítási körök, mozgásérzékelős és időzített kapcsolás. Ingyenes felmérés.",
-    lead: "Elavult izzók és fénycsövek cseréje LED-re — alacsonyabb fogyasztás, jobb fényminőség, hosszabb élettartam. Irodában, üzletben, műhelyben és otthon egyaránt.",
+    lead: "Régi izzók és fénycsövek cseréje LED-re. Kevesebb fogyasztás, jobb fény, és nem kell háromévente létrára mászni. Irodában, üzletben, műhelyben, otthon.",
     mikor: [
       {
         cim: "Ha még fénycső világít",
@@ -83,7 +83,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       {
         cim: "Ha villog vagy zúg a világítás",
         szoveg:
-          "Ez jellemzően az előtét öregedésének jele — cserével a probléma véglegesen megszűnik.",
+          "Ilyenkor jellemzően az előtét adta meg magát. Csere után nincs többé villogás.",
       },
       {
         cim: "Ha sötét a munkaterület",
@@ -106,7 +106,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Vészvilágítás és menekülési útirányjelzés kiépítése",
     ],
     amireFigyelunk:
-      "A LED-nél nem a wattszám számít, hanem a fényáram (lumen) és a színhőmérséklet. Egy irodába 4000K körüli semleges fehér való, egy nappaliba inkább 2700-3000K meleg fehér. Rossz színhőmérséklettel a technikailag tökéletes világítás is kellemetlen lesz.\n\nMunkaterületnél a megvilágítási szint (lux) az irányadó — ez helyiségtípusonként eltérő elvárás. A felmérésen ezt is megnézzük, nem csak azt, hány lámpa van.",
+      "A LED-nél nem a watt számít, hanem a lumen és a színhőmérséklet. Irodába 4000K való, nappaliba 2700-3000K. Ha ezt elrontják, a technikailag tökéletes világítás is kellemetlen lesz — sokan ezért nem szeretik a LED-et, pedig csak rossz típust vettek.\n\nMunkaterületen a lux az irányadó, nem a lámpák száma. A felmérésen ezt is megnézzük.",
   },
 
   "villanyszerelesi-hibaelharitas": {
@@ -120,7 +120,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       {
         cim: "Ha folyamatosan kiold a kismegszakító vagy az életvédelmi relé",
         szoveg:
-          "Ez soha nem véletlen — mindig van oka, és addig ismétlődik, amíg meg nem találjuk.",
+          "Ez nem szeszély. Van oka, és addig jön elő újra, amíg meg nem találjuk.",
       },
       {
         cim: "Ha egy helyiségben nincs áram",
@@ -146,11 +146,11 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Elosztószekrény hibáinak javítása",
     ],
     amireFigyelunk:
-      "A hibaelhárításnál a legfontosabb, hogy ne csak a tünetet szüntessük meg. Ha egy kismegszakító folyamatosan kiold, azt ki lehet cserélni egy nagyobbra — de akkor a védelem szűnik meg, nem a hiba. Mi mindig az okot keressük.\n\nMelegedő szerelvénynél ne várjon: kapcsolja le az adott áramkört, és szóljon minél előbb. Ez az egyetlen olyan hibatípus, ami valóban sürgős.",
+      "A hibakeresésnél az a lényeg, hogy ne csak a tünetet szüntessük meg. Ha egy kismegszakító folyton kiold, azt ki lehet cserélni nagyobbra — akkor viszont nem a hiba szűnt meg, hanem a védelem.\n\nMelegedő konnektornál ne várjon: kapcsolja le a kört, és hívjon. Ez az egyetlen hibatípus, ami tényleg sürgős — jellemzően laza sorkapocs vagy túlterhelés van mögötte.",
     extraPanel: {
-      cim: "Fontos",
+      cim: "Sürgős esetben",
       szoveg:
-        "A kivitelezés 2026. november 1-től indul, így jelenleg azonnali hibaelhárításra nem tudunk kiszállni. Ha sürgős esete van, hívjon — segítünk megtalálni, kihez fordulhat.",
+        "Ha melegszik egy konnektor vagy égett szagot érez, kapcsolja le az adott áramkört, és hívjon. A sürgős eseteket előre soroljuk az ütemezésben.",
     },
   },
 
@@ -160,7 +160,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     title: "Villanyszerelés építkezéskor — nyomvonal, csövezés | SIROVILL",
     description:
       "Erős- és gyengeáramú nyomvonalak kialakítása, amíg nyitva a fal. Nyomvonaltervezés szerkezetkész állapotban.",
-    lead: "Erős- és gyengeáramú nyomvonalak kialakítása, amíg még nyitva a fal — hogy utólag ne kelljen vésni vagy kábelcsatornát tenni a falra.",
+    lead: "Erős- és gyengeáramú nyomvonal kialakítása, amíg nyitva a fal. Utána már csak vésve vagy kábelcsatornában megy.",
     mikor: [
       {
         cim: "Szerkezetkész állapot után, vakolás előtt",
@@ -178,15 +178,14 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       },
     ],
     mitCsinalunk: [
-      "Nyomvonaltervezés az alaprajz alapján",
-      "Falhoronyvésés, csövezés, dobozolás",
-      "Erősáramú és gyengeáramú vezetékek összehangolt kiépítése",
-      "Alépítmény, kábeltálca kialakítása",
-      "Üres védőcsövek a jövőbeli bővítéshez",
-      "Együttműködés a hálózat- és biztonságtechnikai tervezéssel",
+      "Nyomvonaltervezés alaprajz alapján",
+      "Falhoronyvésés, gégecsövezés, kötődobozok elhelyezése",
+      "Erős- és gyengeáram összehangolt kiépítése",
+      "Kábeltálca, alépítmény kültéren",
+      "Üres védőcső a későbbi bővítéshez",
     ],
     amireFigyelunk:
-      "A gyengeáramú kábelt (hálózat, kamera, riasztó) elkülönítjük az erősáramútól. Ha hosszan párhuzamosan futnak, az erősáram zavarhatja a jelet — képzaj, hibás riasztásjelzés formájában. Nem kell külön falba tenni, de távolságot kell tartani, és merőlegesen keresztezni.\n\nAz üres védőcső a legjobb ár-érték arányú döntés az egész építkezésen. Amíg nyitva a fal, néhány ezer forint. Utólag ugyanaz vésés, javítás, festés.\n\nAmit szinte mindenki lekés: a riasztó nyitásérzékelőinek kábele a nyílászárók mellé megy — ezt az ablakbeépítés előtt vagy közben kell megoldani. Ha az ablak már be van habozva és bevakolva, oda utólag csak bontással megy kábel.",
+      "A gyengeáramot (hálózat, kamera, riasztó) elkülönítjük az erősáramtól. Ha sokáig egymás mellett futnak, az erősáram belezavar a jelbe — ebből lesz a képzaj és a téves riasztás. Nem kell külön falba tenni, elég a távolság, és merőlegesen keresztezni.\n\nAz üres védőcső a legjobb döntés az egész építkezésen. Amíg nyitva a fal, pár ezer forint. Utána vésés, javítás, festés.\n\nAmit szinte mindenki lekés: a riasztó nyitásérzékelője a tok mellé kerül. Ha az ablak már be van habozva és bevakolva, oda kábel csak bontással megy.",
     egyKezbolPanel: {
       cim: "Egy kézből",
       szoveg:
@@ -283,7 +282,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Meglévő rendszerbe illesztés",
     ],
     amireFigyelunk:
-      "A legtöbb okos kapcsolóhoz nullavezeték kell a kapcsolódobozban. Régebbi ingatlanoknál ez sokszor hiányzik — ilyenkor vagy kábelezni kell, vagy olyan eszközt választani, ami nullavezeték nélkül is működik. Ez a felmérésen derül ki, nem a telepítés napján.\n\nÉpítkezéskor ez a probléma fel sem merül, ha előre szólnak: minden kapcsolódobozba behúzzuk a nullát, akkor is, ha most még hagyományos kapcsoló kerül bele.",
+      "A legtöbb okos kapcsolóhoz null kell a süllyesztett dobozba. Régi lakásokban ez sokszor nincs ott — a kapcsolóhoz csak a fázis megy fel. Ilyenkor vagy kábelezni kell, vagy olyan típust választani, ami null nélkül is elmegy. Ez a felmérésen kiderül, nem a telepítés napján.\n\nÉpítkezésnél ez fel sem merül, ha előre szólnak: minden dobozba behúzzuk a nullt, akkor is, ha most még hagyományos kapcsoló kerül bele.",
   },
 
   "ipari-villanyszereles": {
@@ -323,8 +322,8 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Kábeltálca, védőcső, ipari nyomvonal kialakítása",
     ],
     amireFigyelunk:
-      "Gépbekötésnél mindig a gyártói dokumentáció az irányadó — az abban előírt védelem, keresztmetszet és csatlakozás szerint dolgozunk. Ha a dokumentáció nem elérhető, azt a munka előtt tisztázni kell.\n\nIpari környezetben a mechanikai védelem ugyanolyan fontos, mint a villamos: ahol targonca jár, ott nem elég a falra szerelt vezeték.",
+      "Gépbekötésnél a gyártói dokumentáció az irányadó — az abban előírt védelem és keresztmetszet szerint dolgozunk. Ha a papír nincs meg, azt a munka előtt tisztázzuk.\n\nIpari környezetben a mechanikai védelem ugyanolyan fontos, mint a villamos. Ahol targonca jár, ott nem elég a falra pattintott vezeték.",
     mitNeVarjon:
-      "Nem végzünk gépkönyvi felülvizsgálatot, érintésvédelmi mérést, és nem állítunk ki jegyzőkönyvet. Ha a gép üzembe helyezéséhez ez szükséges, partnerünkkel biztosítjuk.",
+      "Felülvizsgálatot és jegyzőkönyvet nem vállalunk — ha kell, partnerünk elvégzi.",
   },
 };
