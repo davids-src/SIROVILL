@@ -97,7 +97,7 @@ export default function HomePage() {
                   className="mt-6 text-4xl font-bold text-ink sm:text-5xl lg:text-6xl"
                   style={{ letterSpacing: "-0.04em", lineHeight: 1.05 }}
                 >
-                  Villanyszerelés, ahogy kell
+                  Villanyszerelés, meglepetések nélkül
                 </h1>
                 <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
                   Konnektortól az elosztóig, hibakereséstől a teljes felújításig. Kimegyünk, megnézzük, és megmondjuk, mennyibe kerül. A felmérés ingyen van.

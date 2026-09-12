@@ -1,0 +1,23 @@
+# Függőségek — a build során újratelepülnek
+node_modules
+npm-debug.log*
+
+# Next.js build output (image-ben újraépül)
+.next
+out
+build
+
+# Lokális env fájlok — soha ne kerüljenek image-be!
+.env
+.env*.local
+.env.local
+
+# Fejlesztői eszközök
+.git
+.gitignore
+.github
+
+# Egyéb
+.DS_Store
+*.log
+README.md

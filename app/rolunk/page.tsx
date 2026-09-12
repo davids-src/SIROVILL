@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 const team = [
-  { nev: "Skoda Dávid", szerep: "SIRONIC — Hálózat és IT" },
-  { nev: "Tóth Tamás", szerep: "SIRO-VÉD — Biztonságtechnika" },
+  { nev: "Skoda Dávid", szerep: "SIRONIC, SIRO-VÉD — Biztonságtechnika, Hálózat és IT" },
+  { nev: "Tóth Tamás", szerep: "SIROSOFT — Szoftver és webfejlesztés" },
   { nev: "Villanyszerelő kollégánk", szerep: "SIROVILL — Épületvillamosság" },
 ];
 

@@ -35,6 +35,10 @@ export const metadata: Metadata = {
   },
   description:
     "Épületvillamossági kivitelezés, felújítás, hibaelhárítás és kábelezés cégeknek és magánszemélyeknek. Fejér megye, Budapest, Közép-Dunántúl. Ingyenes felmérés.",
+  icons: {
+    icon: "/sirovill_logo_vegleges.png",
+    apple: "/sirovill_logo_vegleges.png",
+  },
   openGraph: {
     type: "website",
     locale: "hu_HU",
@@ -100,6 +104,21 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {/* Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-FGW9SLHR8Q"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FGW9SLHR8Q');
+            `,
+          }}
         />
       </head>
       <body>

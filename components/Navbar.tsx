@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/site";
@@ -97,14 +98,16 @@ export function Navbar() {
 
 export function SirovillLogo() {
   return (
-    <div className="flex h-7 items-center gap-2">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-        <rect x="1" y="1" width="26" height="26" rx="4" stroke="#F5B81C" strokeWidth="1.5" />
-        <path d="M14 6L20 15H16V22H12V15H8L14 6Z" fill="#F5B81C" />
-      </svg>
-      <span className="font-display text-lg font-bold tracking-tight text-ink">
-        SIROVILL
-      </span>
+    <div className="flex h-8 items-center">
+      <Image
+        src="/sirovill_logo_vegleges.png"
+        alt="SIROVILL logo"
+        height={32}
+        width={160}
+        priority
+        className="object-contain"
+        style={{ maxHeight: "32px", width: "auto" }}
+      />
     </div>
   );
 }

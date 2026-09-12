@@ -5,8 +5,8 @@ import { useEffect } from "react";
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
-    _fbq?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
+    _fbq?: any;
+    fbq?: any;
     dataLayer?: unknown[];
   }
 }
@@ -52,13 +52,18 @@ export function Analytics() {
       }
 
       if (fbPixelId && accepted) {
-        if (!window._fbq) {
-          window._fbq = function (...args: unknown[]) {
-            window.fbq = window.fbq || function (...a: unknown[]) {
-              window._fbq?.apply(null, a);
-            };
-            window.fbq?.apply(null, args);
+        if (!window.fbq) {
+          const fbq: any = function (...args: unknown[]) {
+            fbq.callMethod
+              ? fbq.callMethod.apply(fbq, args)
+              : fbq.queue.push(args);
           };
+          if (!window._fbq) window._fbq = fbq;
+          fbq.push = fbq;
+          fbq.loaded = true;
+          fbq.version = "2.0";
+          fbq.queue = [];
+          window.fbq = fbq;
         }
         loadScript(
           "https://connect.facebook.net/en_US/fbevents.js",
