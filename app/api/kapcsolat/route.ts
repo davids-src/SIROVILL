@@ -54,11 +54,19 @@ export async function POST(req: Request) {
 </body>
 </html>`;
 
+    const smtpUser = process.env.SMTP_USER || "";
+    const smtpFrom = process.env.SMTP_FROM || smtpUser;
+
     // ⚠️ KRITIKUS: await — ha dob, a catch blokk 502-vel tér vissza
     await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      from: smtpFrom,
       to: process.env.SIROVILL_ADMIN_EMAIL,
       replyTo: body.email,
+      sender: smtpUser, // Explicit sender header
+      envelope: {
+        from: smtpUser, // Kőkeményen felülírja a MAIL FROM-ot
+        to: process.env.SIROVILL_ADMIN_EMAIL || "",
+      },
       subject: `SIROVILL megkeresés — ${body.munkaTipus}`,
       html: htmlBody,
     });
