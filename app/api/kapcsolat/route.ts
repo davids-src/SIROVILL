@@ -57,19 +57,64 @@ export async function POST(req: Request) {
     const smtpUser = process.env.SMTP_USER || "";
     const smtpFrom = process.env.SMTP_FROM || smtpUser;
 
-    // ⚠️ KRITIKUS: await — ha dob, a catch blokk 502-vel tér vissza
-    await transporter.sendMail({
-      from: smtpFrom,
-      to: process.env.SIROVILL_ADMIN_EMAIL,
-      replyTo: body.email,
-      sender: smtpUser, // Explicit sender header
-      envelope: {
-        from: smtpUser, // Kőkeményen felülírja a MAIL FROM-ot
-        to: process.env.SIROVILL_ADMIN_EMAIL || "",
-      },
-      subject: `SIROVILL megkeresés — ${body.munkaTipus}`,
-      html: htmlBody,
-    });
+    const customerHtmlBody = `
+<!DOCTYPE html>
+<html lang="hu">
+<head><meta charset="UTF-8"><title>Köszönjük megkeresését!</title></head>
+<body style="font-family:sans-serif;color:#222;max-width:600px;margin:0 auto;padding:24px">
+  <div style="border-left:4px solid #F5B81C;padding-left:16px;margin-bottom:24px">
+    <h1 style="margin:0;font-size:20px;color:#0A0A0C;background:#F5B81C;padding:8px 16px;display:inline-block">
+      SIROVILL — Sikeres kapcsolatfelvétel
+    </h1>
+  </div>
+  <p style="margin-bottom: 16px">Kedves <strong>${escapeHtml(body.nev)}</strong>!</p>
+  <p style="margin-bottom: 16px">Köszönjük megkeresésedet! Üzenetedet sikeresen rögzítettük rendszerünkben. Szakértőnk hamarosan, legkésőbb 1 munkanapon belül felveszi veled a kapcsolatot a megadott elérhetőségeiden.</p>
+  
+  <div style="background: #f9f9f9; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <p style="margin: 0 0 8px 0; font-size: 14px; color: #555;">Az általad megadott adatok:</p>
+    <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+      <li style="margin-bottom: 4px;"><strong>Munka típusa:</strong> ${escapeHtml(body.munkaTipus)}</li>
+      <li><strong>Helyszín:</strong> ${escapeHtml(body.helyszinTipus)}</li>
+    </ul>
+  </div>
+  
+  <p style="margin-bottom: 24px">Üdvözlettel,<br><strong>A SIROVILL csapata</strong></p>
+  <div style="font-size:12px;color:#888;border-top:1px solid #eaeaea;padding-top:16px">
+    <a href="https://sirovill.hu" style="color:#F5B81C;text-decoration:none;font-weight:bold;">sirovill.hu</a> — Villanyszerelés, meglepetések nélkül.<br><br>
+    Ez egy automatikusan generált e-mail. Kérjük, erre az e-mailre ne válaszolj, ha mégis kapcsolatba szeretnél lépni velünk, használd a weboldalon található elérhetőségeinket.
+  </div>
+</body>
+</html>`;
+
+    // ⚠️ KRITIKUS: await Promise.all — mindkettőt egyszerre küldjük
+    await Promise.all([
+      // 1. Admin értesítés nektek
+      transporter.sendMail({
+        from: smtpFrom,
+        to: process.env.SIROVILL_ADMIN_EMAIL,
+        replyTo: body.email,
+        sender: smtpUser, // Explicit sender header
+        envelope: {
+          from: smtpUser, // Kőkeményen felülírja a MAIL FROM-ot
+          to: process.env.SIROVILL_ADMIN_EMAIL || "",
+        },
+        subject: `SIROVILL megkeresés — ${body.munkaTipus}`,
+        html: htmlBody,
+      }),
+      // 2. Visszaigazolás az ügyfélnek
+      transporter.sendMail({
+        from: smtpFrom,
+        to: body.email,
+        replyTo: process.env.SIROVILL_ADMIN_EMAIL,
+        sender: smtpUser, // Explicit sender header
+        envelope: {
+          from: smtpUser,
+          to: body.email,
+        },
+        subject: `Sikeres kapcsolatfelvétel — SIROVILL`,
+        html: customerHtmlBody,
+      })
+    ]);
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
