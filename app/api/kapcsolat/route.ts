@@ -56,7 +56,7 @@ export async function POST(req: Request) {
 
     // ⚠️ KRITIKUS: await — ha dob, a catch blokk 502-vel tér vissza
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
       to: process.env.SIROVILL_ADMIN_EMAIL,
       replyTo: body.email,
       subject: `SIROVILL megkeresés — ${body.munkaTipus}`,
