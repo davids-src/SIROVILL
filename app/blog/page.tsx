@@ -41,7 +41,7 @@ export default function BlogListPage() {
           <Reveal className="max-w-2xl">
             <div className="rounded-lg border border-line bg-surface p-12 text-center">
               <p className="text-base text-muted sm:text-lg">
-                Hamarosan érkeznek az első cikkek. A felmérés és az ajánlat viszont már most díjmentes.
+                Még nincs közzétett cikkünk. A felmérés és az ajánlat díjmentes.
               </p>
               <Link
                 href="/kapcsolat"

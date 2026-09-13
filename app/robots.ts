@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Bingbot", allow: "/" },
       { userAgent: "anthropic-ai", allow: "/" },
       { userAgent: "CCBot", allow: "/" },
+      { userAgent: "OAI-SearchBot", allow: "/" },
     ],
     sitemap: "https://sirovill.hu/sitemap.xml",
   };

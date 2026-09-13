@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, ArrowRight, Building2, ShieldCheck, BadgeCheck } from "lucide-react";
+import Link from "next/link";
 import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/Eyebrow";
@@ -356,6 +357,9 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-t border-line/50 py-28">
         <div className="ambient-glow absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-site px-6 text-center">
+          <p className="mb-12 text-sm text-muted">
+            Generálkivitelező vagy szakági cég? Alvállalkozóként is dolgozunk — <Link href="/partneri-egyuttmukodes" className="text-ink hover:text-amber transition-colors">részletek a B2B együttműködésről</Link>.
+          </p>
           <Reveal>
             <Chip accent={ACCENT}>DÍJMENTES FELMÉRÉS</Chip>
             <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold text-ink sm:text-4xl" style={{ letterSpacing: "-0.02em" }}>

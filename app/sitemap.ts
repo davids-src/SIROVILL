@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/szolgaltatasok`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE}/partneri-egyuttmukodes`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/rolunk`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/kapcsolat`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/blog`, changeFrequency: "weekly", priority: 0.7 },

@@ -65,6 +65,12 @@ export default function AszfPage() {
             <p>A megrendelő személyes adatainak kezelése az <a href="/adatvedelem">adatkezelési tájékoztató</a> szerint történik.</p>
             <h2>9. Hatály</h2>
             <p>Jelen általános szerződési feltételek 2026. augusztus 17-től hatályosak.</p>
+            <h2>10. Alvállalkozói és partneri együttműködés</h2>
+            <p>A Szolgáltató vállalkozási szerződés keretében alvállalkozóként is végez kivitelezési tevékenységet más gazdasági társaságok (generálkivitelezők, szakági kivitelezők) megbízásából. Ilyen esetben a Szolgáltató a Megrendelővel kötött külön szerződés szerint jár el; a végfelhasználóval fennálló jogviszony a Megrendelő és a végfelhasználó között áll fenn.</p>
+            <p>A Szolgáltató a Megrendelő végfelhasználói felé önálló üzleti ajánlattétellel nem él, és velük a Megrendelő megkerülésével szerződéses kapcsolatot nem létesít.</p>
+            <p>A Szolgáltató vállalja, hogy a Megrendelő kérésére a kivitelezést a Megrendelő arculatában végzi.</p>
+            <p>A Szolgáltató a vállalt határidők tartása érdekében szükség esetén további közreműködőket von be, akiknek tevékenységéért úgy felel, mintha maga járt volna el.</p>
+            <p>A Szolgáltató érintésvédelmi és szabványossági felülvizsgálatot nem végez, ilyen jegyzőkönyvet nem állít ki; amennyiben a kivitelezéshez ez szükséges, azt a Szolgáltató erre jogosult partnere útján biztosítja.</p>
             <p className="mt-8 text-xs text-muted">Utolsó frissítés: 2026. augusztus 17.</p>
           </div>
         </Reveal>

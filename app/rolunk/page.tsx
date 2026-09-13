@@ -10,7 +10,7 @@ const ACCENT = SITE.accent;
 
 export const metadata: Metadata = {
   title: "Rólunk — SIROVILL villanyszerelés",
-  description: "A SIROVILL a SIROTECH Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.",
+  description: "A SIROVILL a SIROTECH Informatikai és Biztonságtechnikai Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.",
   openGraph: { title: "Rólunk — SIROVILL", url: "https://sirovill.hu/rolunk" },
   alternates: { canonical: "https://sirovill.hu/rolunk" },
 };
@@ -39,7 +39,7 @@ export default function RolunkPage() {
               A SIROVILL
             </h1>
             <p className="mt-5 text-base text-muted sm:text-lg">
-              A SIROVILL a SIROTECH Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.
+              A SIROVILL a SIROTECH Informatikai és Biztonságtechnikai Kft. divíziója — villanyszerelési szolgáltatással bővítjük azt, amit eddig is csináltunk.
             </p>
           </Reveal>
         </div>
