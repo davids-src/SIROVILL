@@ -1,24 +1,24 @@
-name: Build and Push to GHCR
+name: Docker Image CI
 
 on:
   push:
     branches: [ "main", "master" ]
-  # Lehetőség manuális indításra is a GitHub felületről
+  # Lehetőség manuális indításra is
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  # IMAGE_NAME kisbetűsre konvertálása GitHub repository névből
+  # A github.repository formátuma: tulajdonos/repo (pl. username/msadmin)
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push:
+  build-and-push-image:
     runs-on: ubuntu-latest
-    
-    # Ahhoz, hogy a GITHUB_TOKEN tudjon a GHCR-be írni, kell a packages: write jogosultság
     permissions:
       contents: read
       packages: write
+      # A GitHub OIDC token-hez kellhet, ha signolást is szeretnél, de alapesetben ez is elég
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -31,17 +31,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Convert repository name to lowercase
-        run: echo "IMAGE_NAME=$(echo ${{ env.IMAGE_NAME }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Main/master branch push esetén a 'latest' taget is ráteszi
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=sha,format=short
+            type=sha,format=long
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -50,3 +48,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Kisebb cache-elés a gyorsabb build-hez
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
