@@ -5,15 +5,38 @@ import { useSearchParams } from "next/navigation";
 import { Check, AlertCircle, Send, Clock, MapPin, Phone, Mail } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
 import { SITE } from "@/lib/site";
-import { trackEvent, getSourceParam } from "@/lib/analytics";
+import { trackEvent, getSourceParam, getAttribution, initAttribution } from "@/lib/analytics";
 
 const ACCENT = SITE.accent;
 
-const helyszinTipusok = [
-  "Lakóingatlan",
+const customerTypes = [
+  "Magánszemély (B2C)",
+  "Cég / Vállalkozás (B2B)",
+] as const;
+
+const requestTypes = [
+  "Új építés",
+  "Bővítés / Hálózatfejlesztés",
+  "Felújítás / Átalakítás",
+  "Hibaelhárítás / Javítás",
+  "Karbantartás & Üzemeltetés",
+] as const;
+
+const propertyTypes = [
+  "Családi ház",
+  "Lakás",
   "Iroda",
-  "Ipari",
-  "Építkezés alatt",
+  "Üzlethelyiség",
+  "Műhely / Telephely",
+  "Ipari csarnok",
+  "Egyéb",
+] as const;
+
+const timeframes = [
+  "Azonnal / Sürgős",
+  "1-3 hónapon belül",
+  "3-6 hónapon belül",
+  "Tervezési fázisban",
 ] as const;
 
 const munkaTipusok = [
@@ -63,10 +86,14 @@ function KapcsolatFormInner() {
 
   const formStartedRef = useRef(false);
 
+  useEffect(() => {
+    initAttribution();
+  }, []);
+
   const handleFormStart = () => {
     if (!formStartedRef.current) {
       formStartedRef.current = true;
-      trackEvent("form_start", { form_source: forras });
+      trackEvent("form_start", { form_source: forras, landing_page: typeof window !== "undefined" ? window.location.pathname : "" });
     }
   };
 
@@ -84,7 +111,7 @@ function KapcsolatFormInner() {
     e.preventDefault();
     if (!gdpr) {
       setGdprError(true);
-      trackEvent("form_error", { error_type: "validation" });
+      trackEvent("form_error", { form_type: "kapcsolat_form", error_type: "gdpr_not_accepted" });
       return;
     }
     setStatus("submitting");
@@ -92,19 +119,34 @@ function KapcsolatFormInner() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    
     const nev = data.get("nev") as string;
     const email = data.get("email") as string;
-    const helyszin = data.get("helyszin") as string;
+    const telefon = data.get("telefon") as string;
+    const customerType = data.get("customer_type") as string;
+    const requestType = data.get("request_type") as string;
+    const propertyType = data.get("property_type") as string;
+    const location = data.get("location") as string;
+    const timeframe = data.get("timeframe") as string;
     const munka = data.get("munka") as string;
+    const uzenet = data.get("uzenet") as string;
+
+    const attrData = getAttribution();
 
     const payload = {
       nev,
       email,
-      telefon: data.get("telefon"),
-      helyszinTipus: helyszin,
-      munkaTipus: munka,
-      uzenet: data.get("uzenet"),
+      telefon,
+      customer_type: customerType,
+      request_type: requestType,
+      property_type: propertyType,
+      location,
+      timeframe,
+      helyszinTipus: propertyType,
+      munkaTipus: munka || requestType,
+      uzenet,
       forras,
+      attribution: attrData,
       gdpr: true,
     };
 
@@ -119,23 +161,30 @@ function KapcsolatFormInner() {
       if (res.ok && json.success === true) {
         setStatus("success");
         trackEvent("generate_lead", {
-          form_source: forras,
-          munka_tipus: munka,
-          helyszin_tipus: helyszin,
+          lead_source: forras,
+          form_type: "kapcsolat_form",
+          customer_type: customerType,
+          request_type: requestType,
+          project_type: propertyType,
+          service: munka,
+          region: location,
+          cta_location: "kapcsolat_oldal",
+          source_site: "sirovill.hu",
+          landing_page: typeof window !== "undefined" ? window.location.pathname : "",
         });
         form.reset();
         setGdpr(false);
         formStartedRef.current = false;
       } else {
         setStatus("error");
-        trackEvent("form_error", { error_type: "email_failed" });
+        trackEvent("form_error", { form_type: "kapcsolat_form", error_type: "email_failed" });
         setErrorMsg(
           "Hiba történt a küldés során. Kérjük, próbálja újra, vagy hívjon minket: +36 70 273 5532."
         );
       }
     } catch {
       setStatus("error");
-      trackEvent("form_error", { error_type: "network" });
+      trackEvent("form_error", { form_type: "kapcsolat_form", error_type: "network" });
       setErrorMsg(
         "Hiba történt a küldés során. Kérjük, próbálja újra, vagy hívjon minket: +36 70 273 5532."
       );
@@ -170,18 +219,61 @@ function KapcsolatFormInner() {
           <form onSubmit={onSubmit} className="space-y-5" noValidate>
             <input type="hidden" name="forras" value={forras} />
 
-            <Field label="Név" required>
+            {/* Ügyfél típusa & Igény típusa */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <Field label="Ügyfél típusa" required>
+                <select
+                  name="customer_type"
+                  required
+                  className={inputCls}
+                  defaultValue=""
+                  onFocus={handleFormStart}
+                  onChange={(e) => {
+                    handleFieldBlur("customer_type", e.target.value);
+                    trackEvent("customer_type_select", { customer_type: e.target.value });
+                  }}
+                >
+                  <option value="" disabled>Válasszon…</option>
+                  {customerTypes.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </Field>
+
+              <Field label="Igény típusa" required>
+                <select
+                  name="request_type"
+                  required
+                  className={inputCls}
+                  defaultValue=""
+                  onFocus={handleFormStart}
+                  onChange={(e) => {
+                    handleFieldBlur("request_type", e.target.value);
+                    trackEvent("request_type_select", { request_type: e.target.value });
+                  }}
+                >
+                  <option value="" disabled>Válasszon…</option>
+                  {requestTypes.map((r) => (
+                    <option key={r} value={r}>{r}</option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+
+            {/* Név */}
+            <Field label="Név / Cégnév" required>
               <input
                 type="text"
                 name="nev"
                 required
                 className={inputCls}
-                placeholder="Teljes név"
+                placeholder="Név vagy cég elnevezése"
                 onFocus={handleFormStart}
                 onBlur={(e) => handleFieldBlur("nev", e.target.value)}
               />
             </Field>
 
+            {/* Email & Telefon */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field label="E-mail" required>
                 <input
@@ -194,55 +286,92 @@ function KapcsolatFormInner() {
                   onBlur={(e) => handleFieldBlur("email", e.target.value)}
                 />
               </Field>
-              <Field label="Telefonszám">
+              <Field label="Telefonszám" required>
                 <input
                   type="tel"
                   name="telefon"
+                  required
                   className={inputCls}
-                  placeholder="+36 ..."
+                  placeholder="+36 30 123 4567"
                   onFocus={handleFormStart}
+                  onBlur={(e) => handleFieldBlur("telefon", e.target.value)}
                 />
               </Field>
             </div>
 
-            <Field label="Ingatlan / helyszín típusa" required>
-              <select
-                name="helyszin"
-                required
-                className={inputCls}
-                defaultValue=""
-                onFocus={handleFormStart}
-                onChange={(e) => handleFieldBlur("helyszinTipus", e.target.value)}
-              >
-                <option value="" disabled>Válasszon…</option>
-                {helyszinTipusok.map((h) => (
-                  <option key={h} value={h}>{h}</option>
-                ))}
-              </select>
-            </Field>
+            {/* Ingatlan típusa & Helyszín */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <Field label="Ingatlan típusa" required>
+                <select
+                  name="property_type"
+                  required
+                  className={inputCls}
+                  defaultValue=""
+                  onFocus={handleFormStart}
+                  onChange={(e) => handleFieldBlur("property_type", e.target.value)}
+                >
+                  <option value="" disabled>Válasszon…</option>
+                  {propertyTypes.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </Field>
 
-            <Field label="Milyen munkát szeretne?" required>
-              <select
-                name="munka"
-                required
-                className={inputCls}
-                defaultValue=""
-                onFocus={handleFormStart}
-                onChange={(e) => handleFieldBlur("munkaTipus", e.target.value)}
-              >
-                <option value="" disabled>Válasszon…</option>
-                {munkaTipusok.map((m) => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
-            </Field>
+              <Field label="Munkavégzés helyszíne (Település)" required>
+                <input
+                  type="text"
+                  name="location"
+                  required
+                  className={inputCls}
+                  placeholder="pl. Székesfehérvár, Budapest..."
+                  onFocus={handleFormStart}
+                  onBlur={(e) => handleFieldBlur("location", e.target.value)}
+                />
+              </Field>
+            </div>
 
-            <Field label="Üzenet / részletek">
+            {/* Tervezett kezdés & Szolgáltatás */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <Field label="Tervezett kezdés / Időzítés">
+                <select
+                  name="timeframe"
+                  className={inputCls}
+                  defaultValue=""
+                  onFocus={handleFormStart}
+                  onChange={(e) => handleFieldBlur("timeframe", e.target.value)}
+                >
+                  <option value="" disabled>Válasszon…</option>
+                  {timeframes.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
+              </Field>
+
+              <Field label="Szolgáltatás (opcionális)">
+                <select
+                  name="munka"
+                  className={inputCls}
+                  defaultValue=""
+                  onFocus={handleFormStart}
+                  onChange={(e) => {
+                    handleFieldBlur("munka", e.target.value);
+                    trackEvent("service_select", { service: e.target.value });
+                  }}
+                >
+                  <option value="" disabled>Válasszon…</option>
+                  {munkaTipusok.map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+
+            <Field label="Üzenet / Részletek">
               <textarea
                 name="uzenet"
                 rows={4}
                 className={inputCls}
-                placeholder="Milyen munkáról van szó? Bármilyen részlet segít."
+                placeholder="Milyen munkáról van szó? Bármilyen részlet segít (alapterület, kiállások száma, elosztó állapota)."
                 onFocus={handleFormStart}
               />
             </Field>
@@ -301,7 +430,7 @@ function KapcsolatFormInner() {
                 <Phone size={18} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
                 <a
                   href={SITE.telefonHref}
-                  onClick={() => trackEvent("phone_click", { location: "kapcsolat" })}
+                  onClick={() => trackEvent("phone_click", { cta_location: "kapcsolat_sidebar", page_type: "kapcsolat" })}
                   className="hover:text-amber transition-colors duration-150"
                 >
                   {SITE.telefon}
@@ -311,7 +440,7 @@ function KapcsolatFormInner() {
                 <Mail size={18} strokeWidth={1.5} style={{ color: ACCENT }} className="mt-0.5 shrink-0" />
                 <a
                   href={`mailto:${SITE.email}`}
-                  onClick={() => trackEvent("email_click", { location: "kapcsolat" })}
+                  onClick={() => trackEvent("email_click", { cta_location: "kapcsolat_sidebar", page_type: "kapcsolat" })}
                   className="hover:text-amber transition-colors duration-150"
                 >
                   {SITE.email}

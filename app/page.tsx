@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ArrowRight, Building2, ShieldCheck, BadgeCheck } from "lucide-react";
+import { Check, ArrowRight, Building2, ShieldCheck, BadgeCheck, Home, Hammer, Wrench } from "lucide-react";
 import Link from "next/link";
 import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
@@ -14,6 +14,33 @@ import { EpitkezesiIdovonal } from "@/components/graphics/EpitkezesiIdovonal";
 import { trackEvent } from "@/lib/analytics";
 
 const ACCENT = SITE.accent;
+
+const homeSolutionCards = [
+  {
+    title: "Új építés",
+    text: "Erős- és gyengeáram előkészítése akkor, amikor még minden hozzáférhető.",
+    href: "/megoldasok/uj-epites",
+    icon: Home,
+  },
+  {
+    title: "Felújítás / bővítés",
+    text: "Új áramkörök, elosztó, kiállások és hálózat a meglévő rendszerhez.",
+    href: "/megoldasok/felujitas",
+    icon: Hammer,
+  },
+  {
+    title: "Hibaelhárítás",
+    text: "Mérés, hibakeresés és javítás lakossági és üzleti környezetben.",
+    href: "/szolgaltatasok",
+    icon: Wrench,
+  },
+  {
+    title: "Üzleti kivitelezés",
+    text: "Iroda, üzlet, műhely, telephely és kisebb ipari projektek.",
+    href: "/megoldasok/ipari-kereskedelmi-kivitelezes",
+    icon: Building2,
+  },
+];
 
 const heroBullets = [
   "A felmérés ingyen van",
@@ -181,6 +208,49 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      {/* Új kivitelezés, bővítés vagy javítás */}
+      <Section className="border-t border-line/50">
+        <SectionHeading
+          eyebrow="PROJEKT TÍPUSOK"
+          h2="Új kivitelezés, bővítés vagy javítás?"
+          lead="Válassza ki a helyzetének megfelelő megközelítést — lakossági és üzleti megrendelőknek egyaránt."
+          accent={ACCENT}
+        />
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {homeSolutionCards.map((card, i) => {
+            const IconComponent = card.icon;
+            return (
+              <Reveal key={card.title} delay={i * 0.08}>
+                <Card accent={ACCENT} glow className="flex flex-col justify-between h-full p-6">
+                  <div>
+                    <div className="inline-flex rounded-lg p-3 bg-bg/80 border border-line">
+                      <IconComponent size={24} strokeWidth={1.5} style={{ color: ACCENT }} />
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-ink">{card.title}</h3>
+                    <p className="mt-2 text-sm text-muted">{card.text}</p>
+                  </div>
+                  <div className="mt-6 border-t border-line/50 pt-4">
+                    <TextLink
+                      to={card.href}
+                      className="text-amber"
+                      onClick={() =>
+                        trackEvent("cta_click", {
+                          cta_label: card.title,
+                          cta_location: "home_solutions_grid",
+                        })
+                      }
+                    >
+                      Megnyitás
+                      <ArrowRight size={14} className="ml-1 inline-block" />
+                    </TextLink>
+                  </div>
+                </Card>
+              </Reveal>
+            );
+          })}
+        </div>
+      </Section>
 
       {/* Hogyan dolgozunk */}
       <Section className="border-t border-line/50">

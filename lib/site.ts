@@ -47,6 +47,7 @@ export const SOCIAL: readonly SocialItem[] = [] as const;
 
 export const NAV = [
   { label: "Kezdőlap", href: "/" },
+  { label: "Megoldások", href: "/megoldasok" },
   { label: "Szolgáltatások", href: "/szolgaltatasok" },
   { label: "B2B partner", href: "/partneri-egyuttmukodes" },
   { label: "Blog", href: "/blog" },

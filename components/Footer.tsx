@@ -13,7 +13,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line/50 bg-surface/40">
       <div className="mx-auto max-w-site px-6 py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           <div>
             <SirovillLogo />
             <p className="mt-4 max-w-xs text-sm text-muted">
@@ -40,6 +40,17 @@ export function Footer() {
             )}
           </div>
 
+          <div>
+            <h3 className="label text-muted">Megoldások</h3>
+            <ul className="mt-5 space-y-3">
+              <li><FooterLink href="/megoldasok">Megoldások áttekintő</FooterLink></li>
+              <li><FooterLink href="/megoldasok/uj-epites">Új építés</FooterLink></li>
+              <li><FooterLink href="/megoldasok/felujitas">Felújítás / bővítés</FooterLink></li>
+              <li><FooterLink href="/megoldasok/uzlet-iroda">Üzlet és iroda</FooterLink></li>
+              <li><FooterLink href="/megoldasok/ipari-kereskedelmi-kivitelezes">Ipari kivitelezés</FooterLink></li>
+              <li><FooterLink href="/megoldasok/meglevo-halozat-bovitese">Hálózat bővítése</FooterLink></li>
+            </ul>
+          </div>
 
           <div>
             <h3 className="label text-muted">Szolgáltatások</h3>

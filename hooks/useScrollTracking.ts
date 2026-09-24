@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { trackEvent, initSourceTracking } from "@/lib/analytics";
+import { trackEvent, initAttribution } from "@/lib/analytics";
 
 export function useScrollTracking() {
   const pathname = usePathname();
   const trackedDepthsRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
-    initSourceTracking();
+    initAttribution();
     trackedDepthsRef.current.clear();
 
     const handleScroll = () => {
